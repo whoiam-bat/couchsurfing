@@ -23,6 +23,7 @@ archive.zip
 .venv
 env/
 venv/
+test_main.http
 
 
 # vim temporary files
