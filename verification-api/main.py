@@ -1,33 +1,16 @@
 from fastapi import FastAPI
 
 import model.verification_request
+import model.verification_response
+import service.response_constructor as verification
 
 app = FastAPI(
-    title="Verification API"
+    title='Verification API'
 )
 
-API_NAME = 'verification/api/v1'
+APP_CONTEXT = 'verification/api/v1'
 
 
-@app.get(f"/{API_NAME}")
-async def root():
-    return {"message": "Hello World"}
-
-
-@app.post(f"/{API_NAME}")
+@app.post(f"/{APP_CONTEXT}", response_model=model.verification_response.ResponseData)
 async def verify(input_data: model.verification_request.VerificationData):
-    return {
-        'message': f'Verified for {input_data.fullname}',
-        'images': input_data.passport_img
-    }
-
-
-''' 
-    TODO:
-        1 Request
-        2 Response {
-            status_message,
-            message
-        }
-        3 Verification service
-'''
+    return verification.construct_response(input_data)
