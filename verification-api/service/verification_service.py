@@ -21,7 +21,7 @@ def process_image(image):
 
     reader = easyocr.Reader(['en'], gpu=False)
     result = reader.readtext(image)
-    return result[-4]
+    return result
 
 
 def verify(request: model.verification_request.VerificationData):
@@ -31,7 +31,10 @@ def verify(request: model.verification_request.VerificationData):
     image = decode_image(image_base64)
     img_data = process_image(image)
 
-    mrz = retrieve_data_from_mrz(img_data)
+    if len(img_data) < 4:
+        return False
+
+    mrz = retrieve_data_from_mrz(img_data[-4])
 
     return str.upper(firstname) in mrz and str.upper(lastname) in mrz
 
