@@ -1,6 +1,7 @@
 package com.example.backend.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 import org.bson.types.ObjectId;
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
+@Builder
 public class Review {
 
     private ObjectId id;

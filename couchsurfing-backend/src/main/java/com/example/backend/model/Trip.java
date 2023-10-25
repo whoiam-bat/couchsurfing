@@ -1,5 +1,6 @@
 package com.example.backend.model;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
@@ -10,14 +11,13 @@ import java.time.LocalDateTime;
 
 @Document(collection = "trip")
 @Data
+@Builder
 public class Trip {
 
     @Id
     private String id;
 
-    @DocumentReference
-    @ToString.Exclude
-    private User travelerId;
+    private String travelerId;
 
     private LocalDateTime from;
 
@@ -29,14 +29,4 @@ public class Trip {
 
     private String message;
 
-    public Trip(User travelerId, LocalDateTime from, LocalDateTime to,
-                Integer travelersAmount, String location, String message) {
-
-        this.travelerId = travelerId;
-        this.from = from;
-        this.to = to;
-        this.travelersAmount = travelersAmount;
-        this.location = location;
-        this.message = message;
-    }
 }

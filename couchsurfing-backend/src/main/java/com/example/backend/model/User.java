@@ -3,6 +3,7 @@ package com.example.backend.model;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Document(collection = "user")
 @Data
+@Builder
 public class User {
 
     @Id
@@ -55,20 +57,4 @@ public class User {
     @ToString.Exclude
     private List<Trip> trips;
 
-    public User(String login, String email, String password, LocalDateTime dateCreated,
-                Boolean isVerified, List<Authority> authorities, Double rating,
-                UserInfo userInfo, UserHome userHome, List<Request> requests, List<Review> reviews) {
-
-        this.login = login;
-        this.email = email;
-        this.password = password;
-        this.dateCreated = dateCreated;
-        this.isVerified = isVerified;
-        this.authorities = authorities;
-        this.rating = rating;
-        this.userInfo = userInfo;
-        this.userHome = userHome;
-        this.requests = requests;
-        this.reviews = reviews;
-    }
 }

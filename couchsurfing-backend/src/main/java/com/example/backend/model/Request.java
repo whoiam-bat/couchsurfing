@@ -2,6 +2,7 @@ package com.example.backend.model;
 
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.ToString;
 import org.bson.types.ObjectId;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
+@Builder
 public class Request {
 
     private ObjectId id;

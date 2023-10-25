@@ -2,11 +2,13 @@ package com.example.backend.model;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
+@Builder
 public class UserInfo {
 
     @NotBlank(message = "This section is required")
