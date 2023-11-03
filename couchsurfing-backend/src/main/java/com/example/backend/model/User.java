@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Document(collection = "user")
@@ -37,7 +37,7 @@ public class User {
     @Size(min = 8, max = 16, message = "Password length should be between 8 and 16")
     private String password;
 
-    private LocalDateTime dateCreated;
+    private Date dateCreated;
 
     private Boolean isVerified;
 

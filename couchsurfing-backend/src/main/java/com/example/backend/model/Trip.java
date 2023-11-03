@@ -2,12 +2,10 @@ package com.example.backend.model;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Document(collection = "trip")
 @Data
@@ -19,9 +17,9 @@ public class Trip {
 
     private String travelerId;
 
-    private LocalDateTime from;
+    private Date from;
 
-    private LocalDateTime to;
+    private Date to;
 
     private Integer travelersAmount;
 

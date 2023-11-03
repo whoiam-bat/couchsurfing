@@ -11,6 +11,8 @@ public class UserHome {
     @Min(value = 0, message = "Value should be positive")
     private Integer availableHostNights;
 
+    private Boolean isAcceptingGuests;
+
     @Min(value = 0, message = "Value should be positive")
     private Integer maxGuests;
 
