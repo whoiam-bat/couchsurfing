@@ -10,6 +10,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -18,9 +19,9 @@ public class Request {
 
     private ObjectId id;
 
-    @DocumentReference
-    @ToString.Exclude
-    private User senderId;
+    private String from;
+
+    private String to;
 
     @Min(value = 1, message = "value should be greater than 0")
     private Integer travelersAmount;
@@ -34,7 +35,7 @@ public class Request {
 
     private Boolean isAccepted;
 
-    private LocalDateTime timestamp;
+    private Date timestamp;
 }
 
 

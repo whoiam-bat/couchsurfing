@@ -3,11 +3,9 @@ package com.example.backend.model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.ToString;
 import org.bson.types.ObjectId;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @AllArgsConstructor
@@ -16,9 +14,7 @@ public class Review {
 
     private ObjectId id;
 
-    @DocumentReference
-    @ToString.Exclude
-    private User senderId;
+    private String senderId;
 
     private Boolean wouldRepeat;
 
@@ -28,5 +24,5 @@ public class Review {
 
     private String reviewMessage;
 
-    private LocalDateTime timestamp;
+    private Date timestamp;
 }
