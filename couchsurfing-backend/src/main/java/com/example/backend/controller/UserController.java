@@ -1,7 +1,12 @@
 package com.example.backend.controller;
 
+import com.example.backend.model.Request;
+import com.example.backend.model.Review;
 import com.example.backend.model.Trip;
 import com.example.backend.model.User;
+import com.example.backend.service.RequestService;
+import com.example.backend.service.ReviewService;
+import com.example.backend.service.TripService;
 import com.example.backend.service.UserService;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
@@ -19,16 +24,48 @@ public class UserController {
 
     private final UserService userService;
 
+    private final TripService tripService;
+
+    private final ReviewService reviewService;
+
+    private final RequestService requestService;
+
 
     @GetMapping("/hosts")
-    public ResponseEntity<Page<User>> findHostsByLocation(@RequestParam @NotBlank String location,
-                                                          @RequestParam int page,
-                                                          @RequestParam int size) {
+    public ResponseEntity<Page<User>> getHosts(@RequestParam @NotBlank String location,
+                                               @RequestParam @NotBlank int page,
+                                               @RequestParam @NotBlank int size) {
 
-        return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(userService.findUsersByLocation(location, page, size));
+        return ResponseEntity.ok(userService.findHosts(location, page, size));
     }
+
+    @GetMapping("/surfers")
+    public ResponseEntity<Page<User>> getSurfers(@RequestParam @NotBlank String location,
+                                                 @RequestParam @NotBlank int page,
+                                                 @RequestParam @NotBlank int size) {
+
+        return ResponseEntity.ok(userService.findSurfers(location, page, size));
+    }
+
+    @PostMapping("/accommodation")
+    public ResponseEntity<String> sendAccommodationRequest(@RequestParam @NotBlank String hostId,
+                                                           @RequestBody Request request) {
+
+        requestService.sentAccommodationRequest(hostId, request);
+
+        return ResponseEntity.ok("Request was successfully sent");
+    }
+
+    @PostMapping("/review")
+    public ResponseEntity<String> addReview(@RequestParam @NotBlank String userId,
+                                            @RequestBody Review review) {
+
+        reviewService.addReview(userId, review);
+
+        return ResponseEntity.ok("Review was successfully added");
+    }
+
+
 
     @PostMapping("/add")
     public ResponseEntity<User> addUser(@RequestBody User userToAdd) {
@@ -40,7 +77,7 @@ public class UserController {
     public ResponseEntity<User> updateUserInfo(@PathVariable(name = "_userId") String userId,
                                                @RequestBody User user) {
 
-        return ResponseEntity.ok(userService.updateUserInfo(user, userId));
+        return ResponseEntity.ok(userService.updateUser(user, userId));
     }
 
     @PostMapping("/{_userId}/new-trip")
@@ -49,7 +86,7 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(userService.addNewTrip(userId, trip));
+                .body(tripService.addNewTrip(userId, trip));
     }
 
     @PatchMapping("/{_userId}/update/{_tripId}")
@@ -59,6 +96,6 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.OK)
                 .contentType(MediaType.APPLICATION_JSON)
-                .body(userService.updateTrip(tripId, trip));
+                .body(tripService.updateTrip(tripId, trip));
     }
 }
