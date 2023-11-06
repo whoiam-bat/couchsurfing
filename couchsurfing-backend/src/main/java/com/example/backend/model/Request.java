@@ -4,34 +4,37 @@ import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.ToString;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
+
+@Document(collection = "request")
 @Data
 @AllArgsConstructor
 @Builder
 public class Request {
 
-    private ObjectId id;
+    @Id
+    private String id;
 
-    private String from;
+    private String sender;
 
-    private String to;
+    private String receiver;
 
     @Min(value = 1, message = "value should be greater than 0")
     private Integer travelersAmount;
 
-    @Min(value = 1, message = "value should be greater than 0")
-    private Integer nightsToStay;
+    private Date from;
+
+    private Date to;
 
     private String message;
 
     private ServiceType serviceType;
+
+    private String location;
 
     private Boolean isAccepted;
 

@@ -49,12 +49,12 @@ public class User {
 
     private UserHome userHome;
 
+    @DocumentReference
+    @ToString.Exclude
     private List<Request> requests;
-
-    private List<Review> reviews;
 
     @DocumentReference
     @ToString.Exclude
-    private List<Trip> trips;
+    private List<Review> reviews;
 
 }
