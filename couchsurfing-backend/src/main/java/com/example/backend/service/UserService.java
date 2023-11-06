@@ -2,7 +2,6 @@ package com.example.backend.service;
 
 import com.example.backend.exception.EntityNotFoundException;
 import com.example.backend.model.User;
-import com.example.backend.repository.TripRepository;
 import com.example.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -18,8 +17,6 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    private final TripRepository tripRepository;
-
 
     public Page<User> findHosts(String location, int page, int size) {
         return userRepository.findUsersByUserHomeIsAcceptingGuestsAndUserInfoLocation(true,
@@ -28,8 +25,8 @@ public class UserService {
     }
 
     public Page<User> findSurfers(String location, int page, int size) {
-        return userRepository.findUsersByIncomingTrips(location,
-                LocalDate.now(),
+        return userRepository.findUsersByIncomingTrips(false,
+                location,
                 PageRequest.of(page, size));
     }
 

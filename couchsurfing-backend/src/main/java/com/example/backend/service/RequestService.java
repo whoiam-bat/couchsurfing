@@ -3,9 +3,11 @@ package com.example.backend.service;
 import com.example.backend.exception.EntityNotFoundException;
 import com.example.backend.model.Request;
 import com.example.backend.model.User;
-import com.example.backend.repository.UserRepository;
+import com.example.backend.repository.RequestRepository;
 import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -14,36 +16,53 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class RequestService {
 
-    private final UserRepository userRepository;
+    private final UserService userService;
+
+    private final RequestRepository requestRepository;
 
 
-    public void sentAccommodationRequest(String hostId, Request request) {
-        Optional<User> optionalHost = userRepository.findById(hostId);
-        Optional<User> sender = userRepository.findById(request.getFrom());
+    public Request addNewTrip(String userId, Request trip) {
+        User surfer = userService.findUserById(userId);
 
-        if (optionalHost.isPresent() && sender.isPresent()) {
-            request.setId(new ObjectId());
-            request.setTo(hostId);
-
-            User from = sender.get();
-            User to = optionalHost.get();
-
-            from.getRequests().add(request);
-            to.getRequests().add(request);
-
-            userRepository.save(to);
-            userRepository.save(from);
-
-            // TODO: send request message to HOST email
-        } else
-            throw new EntityNotFoundException("User not found");
+        surfer.getRequests().add(trip);
+        return requestRepository.save(trip);
     }
 
+    public Request sentAccommodationRequest(String hostId, Request request) {
+        User to = userService.findUserById(hostId);
+        User from = userService.findUserById(request.getSender());
 
-    /**
-     * TODO
-     *  Add getIncomingRequests method
-     *  Add getOutgoingRequest method
+        request.setId(new ObjectId().toHexString());
+        request.setReceiver(hostId);
+
+        from.getRequests().add(request);
+        to.getRequests().add(request);
+
+        userService.save(to);
+        userService.save(from);
+
+        // TODO: send request message to HOST email
+
+        return requestRepository.save(request);
+    }
+
+    public Request getRequest(String requestId) {
+        Optional<Request> optionalRequest = requestRepository.findById(requestId);
+
+        return optionalRequest.orElseThrow(() -> new EntityNotFoundException("Request not found!"));
+    }
+
+    public Page<Request> getIncommingRequests(String receiverId, int page, int size) {
+
+        return requestRepository.findRequestsByReceiver(receiverId, PageRequest.of(page, size));
+    }
+
+    public Page<Request> getOutgoingRequests(String senderId, int page, int size) {
+
+        return requestRepository.findRequestsBySender(senderId, PageRequest.of(page, size));
+    }
+    /*
+        TODO
+        Add method to modify request by requestId and userId.
      */
-
 }

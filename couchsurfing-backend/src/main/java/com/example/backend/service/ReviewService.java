@@ -22,7 +22,7 @@ public class ReviewService {
         Optional<User> optionalUser = userRepository.findById(userId);
 
         if (optionalUser.isPresent()) {
-            review.setId(new ObjectId());
+            review.setId(new ObjectId().toHexString());
             optionalUser.get().getReviews().add(review);
 
             userRepository.save(optionalUser.get());
