@@ -1,5 +1,6 @@
 package com.example.backend.model;
 
+import com.example.backend.model.enums.Authority;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -48,13 +49,5 @@ public class User {
     private UserInfo userInfo;
 
     private UserHome userHome;
-
-    @DocumentReference
-    @ToString.Exclude
-    private List<Request> requests;
-
-    @DocumentReference
-    @ToString.Exclude
-    private List<Review> reviews;
 
 }

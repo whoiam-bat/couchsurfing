@@ -1,9 +1,9 @@
 package com.example.backend.model;
 
+import com.example.backend.model.enums.ServiceType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 

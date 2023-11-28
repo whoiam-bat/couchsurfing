@@ -1,5 +1,6 @@
 package com.example.backend.model;
 
+import com.example.backend.model.enums.Gender;
 import jakarta.validation.constraints.Min;
 import lombok.Builder;
 import lombok.Data;
