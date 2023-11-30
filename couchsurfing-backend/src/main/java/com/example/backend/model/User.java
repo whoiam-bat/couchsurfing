@@ -15,7 +15,7 @@ import org.springframework.data.mongodb.core.mapping.DocumentReference;
 import java.util.Date;
 import java.util.List;
 
-@Document(collection = "user")
+@Document(collection = "users")
 @Data
 @Builder
 public class User {
