@@ -19,15 +19,7 @@ public class ReviewService {
 
 
     public void addReview(String userId, Review review) {
-        Optional<User> optionalUser = userRepository.findById(userId);
 
-        if (optionalUser.isPresent()) {
-            review.setId(new ObjectId().toHexString());
-            optionalUser.get().getReviews().add(review);
-
-            userRepository.save(optionalUser.get());
-        } else
-            throw new EntityNotFoundException("User not found");
     }
 
 }
