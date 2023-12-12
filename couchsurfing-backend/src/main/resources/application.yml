@@ -1,11 +1,15 @@
- spring:
-   data:
-     mongodb:
-       username:
-       password:
-       database: couchsurfing
-       authentication-database: admin
-       uri: mongodb://localhost:27017/couchsurfing
-       host: localhost
-       port: 27017
-       auto-index-creation: true
+spring:
+  data:
+    mongodb:
+      username:
+      password:
+      database: couchsurfing
+      authentication-database: admin
+      uri: mongodb://localhost:27017/couchsurfing
+      host: localhost
+      port: 27017
+      auto-index-creation: true
+
+server:
+  servlet:
+    context-path: /api/v1
