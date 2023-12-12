@@ -41,6 +41,8 @@ public class UserService {
 
     @Transactional
     public User updateUser(User userToUpdate, String userId) {
+        User userFromDb = findUserById(userId);
+
         userToUpdate.setId(userId);
 
         return save(userToUpdate);

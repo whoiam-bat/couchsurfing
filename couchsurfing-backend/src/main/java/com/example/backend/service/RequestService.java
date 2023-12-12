@@ -1,6 +1,7 @@
 package com.example.backend.service;
 
 import com.example.backend.exception.EntityNotFoundException;
+import com.example.backend.exception.EntityUpdateException;
 import com.example.backend.model.Request;
 import com.example.backend.model.User;
 import com.example.backend.repository.RequestRepository;
@@ -24,22 +25,19 @@ public class RequestService {
     public Request addNewTrip(String userId, Request trip) {
         User surfer = userService.findUserById(userId);
 
-        surfer.getRequests().add(trip);
+        trip.setId(new ObjectId().toHexString());
+        trip.setSender(surfer.getId());
+
         return requestRepository.save(trip);
     }
 
-    public Request sentAccommodationRequest(String hostId, Request request) {
+    public Request addNewTrip(String userId, String hostId, Request request) {
         User to = userService.findUserById(hostId);
-        User from = userService.findUserById(request.getSender());
+        User from = userService.findUserById(userId);
 
         request.setId(new ObjectId().toHexString());
-        request.setReceiver(hostId);
-
-        from.getRequests().add(request);
-        to.getRequests().add(request);
-
-        userService.save(to);
-        userService.save(from);
+        request.setReceiver(to.getId());
+        request.setSender(from.getId());
 
         // TODO: send request message to HOST email
 
@@ -52,7 +50,7 @@ public class RequestService {
         return optionalRequest.orElseThrow(() -> new EntityNotFoundException("Request not found!"));
     }
 
-    public Page<Request> getIncommingRequests(String receiverId, int page, int size) {
+    public Page<Request> getIncomingRequests(String receiverId, int page, int size) {
 
         return requestRepository.findRequestsByReceiver(receiverId, PageRequest.of(page, size));
     }
@@ -61,8 +59,31 @@ public class RequestService {
 
         return requestRepository.findRequestsBySender(senderId, PageRequest.of(page, size));
     }
-    /*
-        TODO
-        Add method to modify request by requestId and userId.
-     */
+
+    public Request getOutgoingRequest(String senderId, String requestId) {
+        Optional<Request> optionalRequest = requestRepository.findRequestByIdAndSender(requestId, senderId);
+
+        return optionalRequest.orElseThrow(() -> new EntityNotFoundException("Request not found!"));
+    }
+
+    public Boolean updateRequest(String requestId, String userId, Request requestToUpdate) {
+        try {
+            User user = userService.findUserById(userId);
+            Request request = getOutgoingRequest(userId, requestId);
+
+            requestToUpdate.setId(requestId);
+            requestToUpdate.setSender(user.getId());
+            requestToUpdate.setReceiver(request.getReceiver());
+
+            requestRepository.save(requestToUpdate);
+        } catch (EntityNotFoundException e) {
+            throw new EntityUpdateException("Something went wrong with entity update", e);
+        }
+
+        return true;
+    }
+
+    public void deleteRequest(String requestId) {
+        requestRepository.deleteById(requestId);
+    }
 }
