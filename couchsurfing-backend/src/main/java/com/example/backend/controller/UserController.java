@@ -1,20 +1,17 @@
 package com.example.backend.controller;
 
-import com.example.backend.model.Review;
 import com.example.backend.model.User;
 import com.example.backend.service.ReviewService;
 import com.example.backend.service.UserService;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/users")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -53,23 +50,4 @@ public class UserController {
         return ResponseEntity.ok(userService.updateUser(user, userId));
     }
 
-    // TODO: Refactor
-    /*@PostMapping("/{_userId}/new-trip")
-    public ResponseEntity<Trip> addNewTrip(@PathVariable(name = "_userId") String userId,
-                                             @RequestBody Trip trip) {
-
-        return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(tripService.addNewTrip(userId, trip));
-    }
-
-    @PatchMapping("/{_userId}/update/{_tripId}")
-    public ResponseEntity<Trip> updateTrip(@PathVariable(name = "_userId") String userId,
-                                           @PathVariable(name = "_tripId") String tripId,
-                                           @RequestBody Trip trip) {
-
-        return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.APPLICATION_JSON)
-                .body(tripService.updateTrip(tripId, trip));
-    }*/
 }
