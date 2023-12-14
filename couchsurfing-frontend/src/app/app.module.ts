@@ -1,21 +1,26 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 import {RouterOutlet} from "@angular/router";
-import { HostsComponent } from './components/hosts/hosts.component';
+import { HeaderComponent } from './components/header/header.component';
+import {NgOptimizedImage} from "@angular/common";
+import { SearchComponent } from './components/search/search.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HostsComponent
+    HeaderComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
-    RouterOutlet
+    RouterOutlet,
+    NgOptimizedImage
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

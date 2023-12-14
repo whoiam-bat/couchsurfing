@@ -1,0 +1,33 @@
+.global-header {
+  background: var(--dark-black);
+  box-shadow: var(--shadow);
+
+  display: flex;
+  width: 100vw;
+  height: 69px;
+  position: fixed;
+  padding: 0 101px 0 100px;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  z-index: 6;
+  font-size: 16px;
+}
+
+.global-header-wrapper {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.global-header-logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 70px;
+  height: 68px;
+}
