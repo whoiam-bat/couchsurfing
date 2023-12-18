@@ -1,15 +1,20 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.css',
+    '../header/header.component.css']
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit {
 
   selectedOption: string = "Explore";
   searchOptions: string[] = ["Explore", "Find Hosts", "Find Travelers"];
 
+
+  ngOnInit(): void {
+    this.resetDefaultOption();
+  }
 
 
   doSelectOption(option: string): void {
@@ -20,8 +25,8 @@ export class SearchComponent {
     this.selectedOption = "Explore";
   }
 
-  dropdownList():void {
-    let list = document.getElementById('options')
+  dropdownList(): void {
+    let list = document.getElementById('search-options')
     list!.classList.toggle('open')
   }
 
