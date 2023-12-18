@@ -3,7 +3,8 @@ import {Component, OnInit} from '@angular/core';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css']
+  styleUrls: ['./search.component.css',
+    '../header/header.component.css']
 })
 export class SearchComponent implements OnInit {
 
@@ -25,7 +26,7 @@ export class SearchComponent implements OnInit {
   }
 
   dropdownList(): void {
-    let list = document.getElementById('options')
+    let list = document.getElementById('search-options')
     list!.classList.toggle('open')
   }
 

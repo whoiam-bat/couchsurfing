@@ -5,7 +5,7 @@
   padding: 2px;
   border-radius: 5px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.25);
-  font-size: 1.1em;
+  font-size: 1em;
   color: var(--white);
   background-color: var(--dark-black);
 }
@@ -40,7 +40,7 @@
   margin-left: 5px;
 }
 
-.options {
+.search-options {
   z-index: 999;
   list-style: none;
   position: absolute;
@@ -55,11 +55,11 @@
   transition: max-height 0.5s;
 }
 
-.options.open {
+.search-options.open {
   max-height: 300px;
 }
 
-.option {
+.search-option {
   display: flex;
   justify-content: flex-start;
   padding: 10px 7px;
@@ -67,7 +67,7 @@
   border-bottom: 2px solid var(--grey);
 }
 
-.option:hover {
+.search-option:hover {
   background: var(--black);
   color: var(--orange);
 }
