@@ -1,0 +1,98 @@
+.global-header-nav {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 69px;
+  width: 700px;
+}
+
+.nav-list {
+  margin: 0;
+  height: 100%;
+  list-style: none;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.nav-item {
+  height: 100%;
+}
+
+.nav-item a {
+  height: 100%;
+  color: var(--white);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  line-height: 30px;
+  font-size: 13px;
+}
+
+.nav-item a:hover {
+  color: var(--orange);
+}
+
+.nav-item #verify {
+  color: var(--light-green);
+}
+
+.nav-item #verify:hover {
+  color: var(--dark-green);
+}
+
+.nav-icon-wrap {
+  font-size: 28px;
+}
+
+.settings-dropdown {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100%;
+  color: var(--white);
+}
+
+.settings-options {
+  z-index: 999;
+  list-style: none;
+  position: absolute;
+  top: 67px;
+  right: 50px;
+  padding-left: 0;
+  margin: 0;
+  width: 200px;
+  background-color: var(--dark-black);
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s;
+}
+
+.settings-option a {
+  font-size: 16px;
+  width: 100%;
+}
+
+.settings-options.open {
+  max-height: 300px;
+}
+
+.settings-option {
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px 7px;
+  border: 1px solid var(--grey);
+  border-bottom: 2px solid var(--grey);
+}
+
+.settings-option:hover {
+  background: var(--black);
+  color: var(--orange);
+}
+

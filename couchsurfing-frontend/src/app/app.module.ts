@@ -6,6 +6,7 @@ import {RouterOutlet} from "@angular/router";
 import { HeaderComponent } from './components/header/header.component';
 import {NgOptimizedImage} from "@angular/common";
 import { SearchComponent } from './components/search/search.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { SearchComponent } from './components/search/search.component';
     AppComponent,
     HeaderComponent,
     SearchComponent,
+    NavbarComponent,
   ],
   imports: [
     BrowserModule,
