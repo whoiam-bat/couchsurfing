@@ -61,7 +61,7 @@
 
 .option {
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   padding: 10px 7px;
   border: 1px solid var(--grey);
   border-bottom: 2px solid var(--grey);
