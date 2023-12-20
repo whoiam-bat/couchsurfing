@@ -42,7 +42,6 @@
 
 .search-options {
   z-index: 999;
-  list-style: none;
   position: absolute;
   top: 120%;
   left: 0;

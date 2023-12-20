@@ -9,7 +9,6 @@
 .nav-list {
   margin: 0;
   height: 100%;
-  list-style: none;
 
   display: flex;
   justify-content: center;
@@ -17,9 +16,12 @@
   column-gap: 20px;
 }
 
-.nav-item {
-  height: 100%;
-  padding-top: 5px;
+.nav-item, .page-nav {
+  margin-top: 5px;
+}
+
+.page-nav {
+  height: 60px;
 }
 
 .nav-item a {
@@ -37,6 +39,11 @@
 
 .nav-item a:hover {
   color: var(--orange);
+}
+
+.page-nav a:active {
+  color: var(--orange);
+  border-bottom: 5px solid var(--orange);
 }
 
 .nav-item #verify {
@@ -62,7 +69,6 @@
 
 .settings-options {
   z-index: 999;
-  list-style: none;
   position: absolute;
   top: 67px;
   right: 50px;

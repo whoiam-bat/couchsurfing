@@ -1,0 +1,14 @@
+.global-dashboard {
+  display: flex;
+  justify-content: space-around;
+}
+
+.dashboard-wrap {
+  margin-top: 80px;
+  margin-bottom: 11px;
+  background: var(--dark-black);
+
+  height: 100vh;
+
+  width: 80%;
+}
