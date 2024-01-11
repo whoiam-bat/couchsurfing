@@ -6,19 +6,22 @@
         <label>Verify</label>
       </a>
     </li>
-    <li class="nav-item page-nav">
+    <li class="nav-item page-nav" (click)="onNavbarItemSelect('dashboard')"
+        [class.selected]="selectedItem === 'dashboard'">
       <a href="/" id="dashboard">
         <span class="nav-icon-wrap"><i class="fa-solid fa-earth-europe"></i></span>
         <label>Dashboard</label>
       </a>
     </li>
-    <li class="nav-item page-nav">
+    <li class="nav-item page-nav" (click)="onNavbarItemSelect('inbox')"
+        [class.selected]="selectedItem === 'inbox'">
       <a href="/" id="inbox">
         <span class="nav-icon-wrap"><i class="fa-regular fa-envelope"></i></span>
         <label>Inbox</label>
       </a>
     </li>
-    <li class="nav-item page-nav">
+    <li class="nav-item page-nav" (click)="onNavbarItemSelect('profile')"
+        [class.selected]="selectedItem === 'profile'">
       <a href="/" id="profile">
         <span class="nav-icon-wrap"><i class="fa-regular fa-user"></i></span>
         <label>Profile</label>

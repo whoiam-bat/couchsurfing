@@ -41,7 +41,7 @@
   color: var(--orange);
 }
 
-.page-nav a:active {
+.selected a {
   color: var(--orange);
   border-bottom: 5px solid var(--orange);
 }

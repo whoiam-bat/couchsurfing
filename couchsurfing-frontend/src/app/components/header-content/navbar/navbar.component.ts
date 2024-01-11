@@ -6,6 +6,7 @@ import {Component, OnInit} from '@angular/core';
   styleUrls: ['./navbar.component.css'],
 })
 export class NavbarComponent implements OnInit {
+  selectedItem: string = 'dashboard'
 
   ngOnInit(): void {
   }
@@ -13,5 +14,9 @@ export class NavbarComponent implements OnInit {
   dropdownList(): void {
     let list = document.getElementById('settings-options')
     list!.classList.toggle('open')
+  }
+
+  onNavbarItemSelect(item: string): void {
+    this.selectedItem = item
   }
 }
