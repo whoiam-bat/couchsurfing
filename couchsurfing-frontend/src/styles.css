@@ -21,7 +21,7 @@ body {
   font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
 
-h1 {
+h1, p {
   margin: 0;
 }
 
