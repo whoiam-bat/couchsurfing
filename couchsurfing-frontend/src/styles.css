@@ -9,6 +9,7 @@
   --light-green: #41B866;
   --dark-green: #215c33;
   --light-blue: #287FB8;
+  --dark-blue: #0e4a76;
   --orange: #ED6504;
 }
 
@@ -18,6 +19,10 @@ body {
   background: var(--light-black);
 
   font-family: Lato, "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+}
+
+h1 {
+  margin: 0;
 }
 
 a {
