@@ -1,3 +1,24 @@
 <div class="profile-completion-lvl">
-    Profile completion lvl
+  <header class="pcompletion-lvl-header bar">
+    <h1 class="header-title">
+      My Profile
+    </h1>
+  </header>
+  <div class="progress-bar bar">
+    <div class="expected-progress progress">
+      <div class="actual-progress progress" [style.width]="progress + '%'">
+        {{ progress }}% complete
+      </div>
+    </div>
+  </div>
+  <div class="complete-profile bar">
+    <ul class="complete-profile-actions">
+      <li class="action">
+        <a href="#" class="action-link">
+          <span>Complete My Profile</span>
+          <i class="fa-solid fa-caret-right fa-lg"></i>
+        </a>
+      </li>
+    </ul>
+  </div>
 </div>
