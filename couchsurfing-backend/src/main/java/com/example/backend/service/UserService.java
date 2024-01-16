@@ -6,10 +6,9 @@ import com.example.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
 
 @Service
 @RequiredArgsConstructor
@@ -53,4 +52,7 @@ public class UserService {
         return userRepository.save(userToAdd);
     }
 
+    public UserDetails findByUsername(String login) {
+        return userRepository.findByLogin(login).orElseThrow(() -> new EntityNotFoundException("User not found"));
+    }
 }

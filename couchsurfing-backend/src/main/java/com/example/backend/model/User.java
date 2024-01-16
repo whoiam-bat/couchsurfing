@@ -10,7 +10,7 @@ import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.DocumentReference;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Date;
 import java.util.List;
@@ -18,24 +18,17 @@ import java.util.List;
 @Document(collection = "users")
 @Data
 @Builder
-public class User {
+public class User implements UserDetails {
 
     @Id
     private String id;
 
     @Indexed(unique = true)
-    @Pattern(regexp = "^([a-zA-Z]){2,} ([a-zA-Z]){2,}$",
-            message = "Login should represent your fullname")
-    @Size(min = 5, message = "Login length should be at least 5 characters")
     private String login;
 
     @Indexed(unique = true)
-    @Email(message = "Invalid email format")
     private String email;
 
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[-_])(?=.{8,16})$",
-            message = "Password should contain at leas one digit, upper and lower case character")
-    @Size(min = 8, max = 16, message = "Password length should be between 8 and 16")
     private String password;
 
     private Date dateCreated;
@@ -50,4 +43,28 @@ public class User {
 
     private UserHome userHome;
 
+    @Override
+    public String getUsername() {
+        return login;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
