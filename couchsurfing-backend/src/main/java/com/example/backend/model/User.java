@@ -1,12 +1,9 @@
 package com.example.backend.model;
 
 import com.example.backend.model.enums.Authority;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
-import lombok.ToString;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -24,11 +21,12 @@ public class User implements UserDetails {
     private String id;
 
     @Indexed(unique = true)
-    private String login;
+    private String fullName;
 
     @Indexed(unique = true)
     private String email;
 
+    @JsonIgnore
     private String password;
 
     private Date dateCreated;
@@ -45,7 +43,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return login;
+        return email;
     }
 
     @Override
