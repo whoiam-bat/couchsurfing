@@ -20,6 +20,10 @@ public class JwtService {
     @Value(value = "${jwt.secret}")
     private String secret;
 
+    @Value(value = "${jwt.expiration}")
+    private long expiration;
+
+
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
     }
@@ -29,7 +33,7 @@ public class JwtService {
                 .claims(extraClaims)
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + 360_000 * 24 * 7))
+                .expiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSignInKey())
                 .compact();
     }

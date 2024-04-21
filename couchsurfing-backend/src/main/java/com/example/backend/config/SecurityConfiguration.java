@@ -3,6 +3,8 @@ package com.example.backend.config;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -11,14 +13,15 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.Arrays;
-import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@EnableWebMvc
 @RequiredArgsConstructor
 public class SecurityConfiguration {
 
@@ -30,11 +33,9 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
-                .cors(cors -> cors.configurationSource(apiConfigurationSource()))
                 .authorizeHttpRequests(request -> {
-                    request.requestMatchers("/api/v1/authentication").permitAll();
-                    request.requestMatchers("/api/v1/registration").permitAll();
-                    request.anyRequest().permitAll(); // change to anyRequest().authenticated()
+                    request.requestMatchers("/api/v1/auth/**").permitAll();
+                    request.anyRequest().authenticated();
                 })
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
@@ -43,14 +44,30 @@ public class SecurityConfiguration {
         return httpSecurity.build();
     }
 
-    CorsConfigurationSource apiConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of(
-                "http://localhost:4200"
-        ));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PATCH", "PUT", "DELETE"));
+    @Bean
+    public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.setAllowCredentials(true);
+        configuration.addAllowedOrigin("http://localhost:4200");
+        configuration.setAllowedHeaders(Arrays.asList(
+                HttpHeaders.ACCEPT,
+                HttpHeaders.CONTENT_TYPE,
+                HttpHeaders.AUTHORIZATION,
+                HttpHeaders.ORIGIN
+        ));
+        configuration.setAllowedMethods(Arrays.asList(
+                HttpMethod.GET.name(),
+                HttpMethod.POST.name(),
+                HttpMethod.PUT.name(),
+                HttpMethod.PATCH.name(),
+                HttpMethod.DELETE.name(),
+                HttpMethod.HEAD.name()
+        ));
+        configuration.setMaxAge(3600L);
         source.registerCorsConfiguration("/**", configuration);
-        return source;
+
+        return new CorsFilter(source);
     }
 }

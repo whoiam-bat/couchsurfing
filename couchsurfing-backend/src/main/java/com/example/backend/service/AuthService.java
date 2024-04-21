@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -39,7 +38,7 @@ public class AuthService {
                         .password(passwordEncoder.encode(registrationRequest.getPassword()))
                         .dateCreated(new Date())
                         .isVerified(false)
-                        .authorities(List.of(Authority.ROLE_USER))
+                        .authorities(List.of(Authority.ROLE_USER, Authority.ROLE_SURFER))
                         .rating(0.)
                         .build()
         );
@@ -66,7 +65,6 @@ public class AuthService {
     private AuthResponse constructResponse(String token, User user) {
         return AuthResponse.builder()
                 .accessToken(token)
-                .user(user)
                 .build();
     }
 
