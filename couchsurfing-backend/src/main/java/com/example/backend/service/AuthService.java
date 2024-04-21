@@ -6,7 +6,6 @@ import com.example.backend.model.dto.AuthResponse;
 import com.example.backend.model.dto.RegistrationRequest;
 import com.example.backend.model.enums.Authority;
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,8 +26,6 @@ public class AuthService {
 
     private final AuthenticationManager authManager;
 
-    private final ModelMapper modelMapper;
-
 
     public AuthResponse register(RegistrationRequest registrationRequest) {
         User user = userService.save(
@@ -45,7 +42,7 @@ public class AuthService {
 
         String token = jwtService.generateToken(user);
 
-        return constructResponse(token, user);
+        return constructResponse(token, user.getId());
     }
 
     public AuthResponse authenticate(AuthRequest authRequest) {
@@ -59,12 +56,13 @@ public class AuthService {
         User user = userService.findByUsername(authRequest.getEmail());
         String token = jwtService.generateToken(user);
 
-        return constructResponse(token, user);
+        return constructResponse(token, user.getId());
     }
 
-    private AuthResponse constructResponse(String token, User user) {
+    private AuthResponse constructResponse(String token, String userId) {
         return AuthResponse.builder()
                 .accessToken(token)
+                .userId(userId)
                 .build();
     }
 
