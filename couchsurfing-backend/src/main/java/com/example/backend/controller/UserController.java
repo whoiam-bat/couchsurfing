@@ -22,25 +22,18 @@ public class UserController {
 
     @GetMapping("/hosts")
     public ResponseEntity<Page<User>> getHosts(@RequestParam @NotBlank String location,
-                                               @RequestParam @NotBlank int page,
-                                               @RequestParam @NotBlank int size) {
+                                               @RequestParam int page,
+                                               @RequestParam int size) {
 
         return ResponseEntity.ok(userService.findHosts(location, page, size));
     }
 
     @GetMapping("/surfers")
     public ResponseEntity<Page<User>> getSurfers(@RequestParam @NotBlank String location,
-                                                 @RequestParam @NotBlank int page,
-                                                 @RequestParam @NotBlank int size) {
+                                                 @RequestParam int page,
+                                                 @RequestParam int size) {
 
         return ResponseEntity.ok(userService.findSurfers(location, page, size));
-    }
-
-
-    @PostMapping("/add")
-    public ResponseEntity<User> addUser(@RequestBody User userToAdd) {
-
-        return ResponseEntity.ok(userService.save(userToAdd));
     }
 
     @PatchMapping("/{_userId}/update")
