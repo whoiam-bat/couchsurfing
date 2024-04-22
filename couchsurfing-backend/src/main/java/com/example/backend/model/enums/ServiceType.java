@@ -2,7 +2,8 @@ package com.example.backend.model.enums;
 
 public enum ServiceType {
 
-    HOST,
-    TRIP
+    ACCOMMODATION_PROVISION,
+
+    ACCOMMODATION_REQUEST
 
 }
