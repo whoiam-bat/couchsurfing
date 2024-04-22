@@ -2,7 +2,6 @@ package com.example.backend.controller;
 
 import com.example.backend.model.Request;
 import com.example.backend.service.RequestService;
-import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -17,36 +16,27 @@ public class RequestController {
     private final RequestService requestService;
 
 
-    @PostMapping()
-    public ResponseEntity<Request> addNewTrip(@RequestBody Request request) {
-        // TODO: update this method to get user id dynamically from DB
-        return ResponseEntity.ok(requestService.addNewTrip("", request));
+    @PostMapping("/send-request")
+    public ResponseEntity<Request> sendAccommodationRequest(@RequestBody Request request) {
+        return ResponseEntity.ok(requestService.accommodationRequest(request));
     }
 
-    @PostMapping("/accommodation")
-    public ResponseEntity<Request> sendAccommodationRequest(@RequestParam @NotBlank String hostId,
-                                                            @RequestBody Request request) {
+    @GetMapping("/{requestId}")
+    public ResponseEntity<Request> getRequest(@PathVariable String requestId,
+                                              @RequestParam(required = false) String location) {
+        Request request = location == null ?
+                requestService.getRequest(requestId) : requestService.getRequest(requestId, location);
 
-        /*
-                User sends request
-                receiver make request review
-                after approval trip document is created
-         */
-        // TODO: update this method to get user id dynamically from DB
-        return ResponseEntity.ok(requestService.addNewTrip("", hostId, request));
-    }
-
-    @GetMapping("/get/{requestId}")
-    public ResponseEntity<Request> getRequest(@PathVariable String requestId) {
-        return ResponseEntity.ok(requestService.getRequest(requestId));
+        return ResponseEntity.ok(request);
     }
 
     @GetMapping("/{receiverId}/incoming")
     public ResponseEntity<Page<Request>> getIncomingRequests(@PathVariable String receiverId,
+                                                             @RequestParam String location,
                                                              @RequestParam int page,
                                                              @RequestParam int size) {
 
-        return ResponseEntity.ok(requestService.getIncomingRequests(receiverId, page, size));
+        return ResponseEntity.ok(requestService.getIncomingRequests(receiverId, location, page, size));
     }
 
     @GetMapping("/{senderId}/outgoing")
@@ -62,6 +52,19 @@ public class RequestController {
                                                       @PathVariable String requestId) {
 
         return ResponseEntity.ok(requestService.getOutgoingRequest(senderId, requestId));
+    }
+
+    @PatchMapping("/update/{requestId}")
+    public ResponseEntity<Boolean> updateRequest(@PathVariable String requestId,
+                                                 @RequestBody Request requestToUpdate) {
+
+        return ResponseEntity.ok(requestService.updateRequest(requestId, requestToUpdate));
+    }
+
+    @DeleteMapping("/delete/{requestId}")
+    public ResponseEntity<String> deleteRequest(@PathVariable String requestId) {
+        requestService.deleteRequest(requestId);
+        return ResponseEntity.ok("Deleted successfully!");
     }
 
 }

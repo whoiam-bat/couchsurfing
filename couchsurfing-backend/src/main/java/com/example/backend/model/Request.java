@@ -1,5 +1,6 @@
 package com.example.backend.model;
 
+import com.example.backend.model.enums.RequestStatus;
 import com.example.backend.model.enums.ServiceType;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
@@ -37,7 +38,7 @@ public class Request {
 
     private String location;
 
-    private Boolean isAccepted;
+    private RequestStatus requestStatus;
 
     private Date timestamp;
 }

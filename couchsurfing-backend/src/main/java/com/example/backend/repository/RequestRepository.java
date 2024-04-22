@@ -11,7 +11,9 @@ import java.util.Optional;
 @Repository
 public interface RequestRepository extends MongoRepository<Request, String> {
 
-    Page<Request> findRequestsByReceiver(String receiverId, Pageable pageable);
+    Optional<Request> findByIdAndLocation(String requestId, String location);
+
+    Page<Request> findRequestsByReceiverAndLocation(String receiverId, String location, Pageable pageable);
 
     Page<Request> findRequestsBySender(String senderId, Pageable pageable);
 
