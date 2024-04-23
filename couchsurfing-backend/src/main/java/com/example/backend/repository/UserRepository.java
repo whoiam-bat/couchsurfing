@@ -15,7 +15,10 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     Optional<User> findByEmail(String email);
 
-    Page<User> findUsersByUserInfoLocation(String location, Pageable pageable);
-
-    Page<User> findUsersByAuthoritiesContainingAndUserInfoLocation(List<Authority> authority, String location, Pageable pageable);
+    Page<User> findUsersByAuthoritiesContainingAndUserInfoLocationAndUserHomeIsAcceptingGuests(
+            List<Authority> authority,
+            String location,
+            Boolean isAcceptingGuests,
+            Pageable pageable
+    );
 }

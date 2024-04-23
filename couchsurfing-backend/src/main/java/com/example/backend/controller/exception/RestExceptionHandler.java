@@ -1,5 +1,6 @@
 package com.example.backend.controller.exception;
 
+import com.example.backend.exception.DateMismatchException;
 import com.example.backend.exception.EntityNotFoundException;
 import com.example.backend.exception.EntityUpdateException;
 import lombok.extern.slf4j.Slf4j;
@@ -108,6 +109,17 @@ public class RestExceptionHandler {
     public ResponseEntity<ExceptionResponse> handleEntityUpdateException(EntityUpdateException exp) {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
+                .body(
+                        ExceptionResponse.builder()
+                                .error(exp.getMessage())
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(DateMismatchException.class)
+    public ResponseEntity<ExceptionResponse> handleInvalidDatesOrderException(DateMismatchException exp) {
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(
                         ExceptionResponse.builder()
                                 .error(exp.getMessage())

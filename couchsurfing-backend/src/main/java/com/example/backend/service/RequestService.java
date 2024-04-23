@@ -1,5 +1,6 @@
 package com.example.backend.service;
 
+import com.example.backend.exception.DateMismatchException;
 import com.example.backend.exception.EntityNotFoundException;
 import com.example.backend.exception.EntityUpdateException;
 import com.example.backend.model.Request;
@@ -28,12 +29,10 @@ public class RequestService {
 
 
     public Request accommodationRequest(Request request) {
-        User to = userService.findUserById(request.getReceiver());
-        User from = userService.findUserById(request.getSender());
+        if (request.getTo().before(request.getFrom()))
+            throw new DateMismatchException("Invalid dates order! The check-out date must be later than the check-in date.");
 
         request.setId(new ObjectId().toHexString());
-        request.setReceiver(to.getId());
-        request.setSender(from.getId());
         request.setTimestamp(new Date());
 
         // TODO: send request message to HOST email

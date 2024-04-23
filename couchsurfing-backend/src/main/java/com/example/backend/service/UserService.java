@@ -23,17 +23,19 @@ public class UserService {
 
 
     public Page<User> findHosts(String location, int page, int size) {
-        return userRepository.findUsersByAuthoritiesContainingAndUserInfoLocation(
+        return userRepository.findUsersByAuthoritiesContainingAndUserInfoLocationAndUserHomeIsAcceptingGuests(
                 List.of(Authority.ROLE_HOST),
                 location,
+                true,
                 PageRequest.of(page, size)
         );
     }
 
     public Page<User> findSurfers(String location, int page, int size) {
-        return userRepository.findUsersByAuthoritiesContainingAndUserInfoLocation(
+        return userRepository.findUsersByAuthoritiesContainingAndUserInfoLocationAndUserHomeIsAcceptingGuests(
                 List.of(Authority.ROLE_SURFER),
                 location,
+                false,
                 PageRequest.of(page, size)
         );
     }
@@ -45,10 +47,6 @@ public class UserService {
 
     public User findByUsername(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("User not found"));
-    }
-
-    public Page<User> findUsersByLocation(String location, int page, int size) {
-        return userRepository.findUsersByUserInfoLocation(location, PageRequest.of(page, size));
     }
 
     @Transactional
