@@ -49,8 +49,4 @@ public class SpringConfiguration {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public ModelMapper modelMapper() {
-        return new ModelMapper();
-    }
 }
