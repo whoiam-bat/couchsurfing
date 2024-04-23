@@ -2,15 +2,16 @@ package com.example.backend.controller;
 
 import com.example.backend.model.Request;
 import com.example.backend.service.RequestService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/requests")
 @RequiredArgsConstructor
+@Tag(name = "Requests")
 public class RequestController {
 
     private final RequestService requestService;

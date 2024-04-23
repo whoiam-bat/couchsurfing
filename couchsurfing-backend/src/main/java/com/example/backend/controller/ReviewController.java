@@ -2,15 +2,16 @@ package com.example.backend.controller;
 
 import com.example.backend.model.Review;
 import com.example.backend.service.ReviewService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/reviews")
 @RequiredArgsConstructor
+@Tag(name = "Reviews")
 public class ReviewController {
 
     private final ReviewService reviewService;

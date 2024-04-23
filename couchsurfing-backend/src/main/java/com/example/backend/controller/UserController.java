@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.model.User;
 import com.example.backend.service.ReviewService;
 import com.example.backend.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
+@Tag(name = "Users")
 public class UserController {
 
     private final UserService userService;
