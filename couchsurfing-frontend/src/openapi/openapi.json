@@ -9,22 +9,36 @@
       "url": "https://www.linkedin.com/in/oleksii-drabchak/",
       "email": "drabchak.aleksey@gmail.com"
     },
-    "license": { "name": "Licence name", "url": "https://some-url.com" },
+    "license": {
+      "name": "Licence name",
+      "url": "https://some-url.com"
+    },
     "version": "1.0"
   },
   "servers": [
-    { "url": "http://localhost:8080/api/v1", "description": "Local ENV" }
+    {
+      "url": "http://localhost:8080/api/v1",
+      "description": "Local ENV"
+    }
   ],
-  "security": [{ "bearerAuth": [] }],
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
   "paths": {
     "/reviews/add": {
       "post": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "operationId": "addReview",
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/Review" }
+              "schema": {
+                "$ref": "#/components/schemas/Review"
+              }
             }
           },
           "required": true
@@ -33,7 +47,11 @@
           "200": {
             "description": "OK",
             "content": {
-              "*/*": { "schema": { "$ref": "#/components/schemas/Review" } }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Review"
+                }
+              }
             }
           }
         }
@@ -41,12 +59,16 @@
     },
     "/requests/send-request": {
       "post": {
-        "tags": ["Requests"],
+        "tags": [
+          "Requests"
+        ],
         "operationId": "sendAccommodationRequest",
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/Request" }
+              "schema": {
+                "$ref": "#/components/schemas/Request"
+              }
             }
           },
           "required": true
@@ -55,7 +77,11 @@
           "200": {
             "description": "OK",
             "content": {
-              "*/*": { "schema": { "$ref": "#/components/schemas/Request" } }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Request"
+                }
+              }
             }
           }
         }
@@ -63,12 +89,16 @@
     },
     "/auth/register": {
       "post": {
-        "tags": ["Authentication"],
+        "tags": [
+          "Authentication"
+        ],
         "operationId": "register",
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/RegistrationRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/RegistrationRequest"
+              }
             }
           },
           "required": true
@@ -77,8 +107,10 @@
           "200": {
             "description": "OK",
             "content": {
-              "*/*": {
-                "schema": { "$ref": "#/components/schemas/AuthResponse" }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
               }
             }
           }
@@ -87,12 +119,16 @@
     },
     "/auth/authenticate": {
       "post": {
-        "tags": ["Authentication"],
+        "tags": [
+          "Authentication"
+        ],
         "operationId": "authenticate",
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/AuthRequest" }
+              "schema": {
+                "$ref": "#/components/schemas/AuthRequest"
+              }
             }
           },
           "required": true
@@ -101,8 +137,10 @@
           "200": {
             "description": "OK",
             "content": {
-              "*/*": {
-                "schema": { "$ref": "#/components/schemas/AuthResponse" }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AuthResponse"
+                }
               }
             }
           }
@@ -111,20 +149,26 @@
     },
     "/users/{_userId}/update": {
       "patch": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "operationId": "updateUserInfo",
         "parameters": [
           {
             "name": "_userId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/User" }
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              }
             }
           },
           "required": true
@@ -133,7 +177,11 @@
           "200": {
             "description": "OK",
             "content": {
-              "*/*": { "schema": { "$ref": "#/components/schemas/User" } }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
             }
           }
         }
@@ -141,20 +189,26 @@
     },
     "/reviews/update/{reviewId}": {
       "patch": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "operationId": "updateReview",
         "parameters": [
           {
             "name": "reviewId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/Review" }
+              "schema": {
+                "$ref": "#/components/schemas/Review"
+              }
             }
           },
           "required": true
@@ -162,27 +216,39 @@
         "responses": {
           "200": {
             "description": "OK",
-            "content": { "*/*": { "schema": { "type": "boolean" } } }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
           }
         }
       }
     },
     "/requests/update/{requestId}": {
       "patch": {
-        "tags": ["Requests"],
+        "tags": [
+          "Requests"
+        ],
         "operationId": "updateRequest",
         "parameters": [
           {
             "name": "requestId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
           "content": {
             "application/json": {
-              "schema": { "$ref": "#/components/schemas/Request" }
+              "schema": {
+                "$ref": "#/components/schemas/Request"
+              }
             }
           },
           "required": true
@@ -190,40 +256,60 @@
         "responses": {
           "200": {
             "description": "OK",
-            "content": { "*/*": { "schema": { "type": "boolean" } } }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "boolean"
+                }
+              }
+            }
           }
         }
       }
     },
     "/users/surfers": {
       "get": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "operationId": "getSurfers",
         "parameters": [
           {
             "name": "location",
             "in": "query",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "page",
             "in": "query",
             "required": true,
-            "schema": { "type": "integer", "format": "int32" }
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
           },
           {
             "name": "size",
             "in": "query",
             "required": true,
-            "schema": { "type": "integer", "format": "int32" }
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "*/*": { "schema": { "$ref": "#/components/schemas/PageUser" } }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageUser"
+                }
+              }
             }
           }
         }
@@ -231,33 +317,47 @@
     },
     "/users/hosts": {
       "get": {
-        "tags": ["Users"],
+        "tags": [
+          "Users"
+        ],
         "operationId": "getHosts",
         "parameters": [
           {
             "name": "location",
             "in": "query",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "page",
             "in": "query",
             "required": true,
-            "schema": { "type": "integer", "format": "int32" }
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
           },
           {
             "name": "size",
             "in": "query",
             "required": true,
-            "schema": { "type": "integer", "format": "int32" }
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "*/*": { "schema": { "$ref": "#/components/schemas/PageUser" } }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageUser"
+                }
+              }
             }
           }
         }
@@ -265,21 +365,29 @@
     },
     "/reviews/{reviewId}": {
       "get": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "operationId": "getReview",
         "parameters": [
           {
             "name": "reviewId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "*/*": { "schema": { "$ref": "#/components/schemas/Review" } }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Review"
+                }
+              }
             }
           }
         }
@@ -287,33 +395,47 @@
     },
     "/reviews/outgoing/{senderId}": {
       "get": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "operationId": "getOutgoingReviews",
         "parameters": [
           {
             "name": "senderId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "page",
             "in": "query",
             "required": true,
-            "schema": { "type": "integer", "format": "int32" }
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
           },
           {
             "name": "size",
             "in": "query",
             "required": true,
-            "schema": { "type": "integer", "format": "int32" }
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "*/*": { "schema": { "$ref": "#/components/schemas/PageReview" } }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageReview"
+                }
+              }
             }
           }
         }
@@ -321,33 +443,47 @@
     },
     "/reviews/incoming/{receiverId}": {
       "get": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "operationId": "getIncomingReviews",
         "parameters": [
           {
             "name": "receiverId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "page",
             "in": "query",
             "required": true,
-            "schema": { "type": "integer", "format": "int32" }
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
           },
           {
             "name": "size",
             "in": "query",
             "required": true,
-            "schema": { "type": "integer", "format": "int32" }
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "*/*": { "schema": { "$ref": "#/components/schemas/PageReview" } }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageReview"
+                }
+              }
             }
           }
         }
@@ -355,34 +491,46 @@
     },
     "/requests/{senderId}/outgoing": {
       "get": {
-        "tags": ["Requests"],
+        "tags": [
+          "Requests"
+        ],
         "operationId": "getOutgoingRequests",
         "parameters": [
           {
             "name": "senderId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "page",
             "in": "query",
             "required": true,
-            "schema": { "type": "integer", "format": "int32" }
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
           },
           {
             "name": "size",
             "in": "query",
             "required": true,
-            "schema": { "type": "integer", "format": "int32" }
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "*/*": {
-                "schema": { "$ref": "#/components/schemas/PageRequest" }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageRequest"
+                }
               }
             }
           }
@@ -391,27 +539,37 @@
     },
     "/requests/{senderId}/outgoing/{requestId}": {
       "get": {
-        "tags": ["Requests"],
+        "tags": [
+          "Requests"
+        ],
         "operationId": "getOutgoingRequest",
         "parameters": [
           {
             "name": "senderId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "requestId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "*/*": { "schema": { "$ref": "#/components/schemas/Request" } }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Request"
+                }
+              }
             }
           }
         }
@@ -419,27 +577,37 @@
     },
     "/requests/{requestId}": {
       "get": {
-        "tags": ["Requests"],
+        "tags": [
+          "Requests"
+        ],
         "operationId": "getRequest",
         "parameters": [
           {
             "name": "requestId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "location",
             "in": "query",
             "required": false,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "*/*": { "schema": { "$ref": "#/components/schemas/Request" } }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Request"
+                }
+              }
             }
           }
         }
@@ -447,40 +615,54 @@
     },
     "/requests/{receiverId}/incoming": {
       "get": {
-        "tags": ["Requests"],
+        "tags": [
+          "Requests"
+        ],
         "operationId": "getIncomingRequests",
         "parameters": [
           {
             "name": "receiverId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "location",
             "in": "query",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "page",
             "in": "query",
             "required": true,
-            "schema": { "type": "integer", "format": "int32" }
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
           },
           {
             "name": "size",
             "in": "query",
             "required": true,
-            "schema": { "type": "integer", "format": "int32" }
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
             "content": {
-              "*/*": {
-                "schema": { "$ref": "#/components/schemas/PageRequest" }
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageRequest"
+                }
               }
             }
           }
@@ -489,40 +671,60 @@
     },
     "/reviews/delete/{reviewId}": {
       "delete": {
-        "tags": ["Reviews"],
+        "tags": [
+          "Reviews"
+        ],
         "operationId": "deleteReview",
         "parameters": [
           {
             "name": "reviewId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "content": { "*/*": { "schema": { "type": "string" } } }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
     },
     "/requests/delete/{requestId}": {
       "delete": {
-        "tags": ["Requests"],
+        "tags": [
+          "Requests"
+        ],
         "operationId": "deleteRequest",
         "parameters": [
           {
             "name": "requestId",
             "in": "path",
             "required": true,
-            "schema": { "type": "string" }
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "content": { "*/*": { "schema": { "type": "string" } } }
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
@@ -533,47 +735,97 @@
       "Review": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "senderId": { "type": "string" },
-          "receiverId": { "type": "string" },
-          "wouldRepeat": { "type": "boolean" },
+          "id": {
+            "type": "string"
+          },
+          "senderId": {
+            "type": "string"
+          },
+          "receiverId": {
+            "type": "string"
+          },
+          "wouldRepeat": {
+            "type": "boolean"
+          },
           "serviceType": {
             "type": "string",
-            "enum": ["ACCOMMODATION_PROVISION", "ACCOMMODATION_REQUEST"]
+            "enum": [
+              "ACCOMMODATION_PROVISION",
+              "ACCOMMODATION_REQUEST"
+            ]
           },
-          "rating": { "type": "number", "format": "double" },
-          "reviewMessage": { "type": "string" },
-          "timestamp": { "type": "string", "format": "date-time" }
+          "rating": {
+            "type": "number",
+            "format": "double"
+          },
+          "reviewMessage": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
         }
       },
       "Request": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "sender": { "type": "string" },
-          "receiver": { "type": "string" },
+          "id": {
+            "type": "string"
+          },
+          "sender": {
+            "type": "string"
+          },
+          "receiver": {
+            "type": "string"
+          },
           "travelersAmount": {
             "minimum": 1,
             "type": "integer",
             "format": "int32"
           },
-          "from": { "type": "string", "format": "date-time" },
-          "to": { "type": "string", "format": "date-time" },
-          "message": { "type": "string" },
+          "from": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "to": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "message": {
+            "type": "string"
+          },
           "serviceType": {
             "type": "string",
-            "enum": ["ACCOMMODATION_PROVISION", "ACCOMMODATION_REQUEST"]
+            "enum": [
+              "ACCOMMODATION_PROVISION",
+              "ACCOMMODATION_REQUEST"
+            ]
           },
-          "location": { "type": "string" },
+          "location": {
+            "type": "string"
+          },
           "requestStatus": {
             "type": "string",
-            "enum": ["CREATED", "ACCEPTED", "DECLINED", "CANCELED", "COMPLETED"]
+            "enum": [
+              "CREATED",
+              "ACCEPTED",
+              "DECLINED",
+              "CANCELED",
+              "COMPLETED"
+            ]
           },
-          "timestamp": { "type": "string", "format": "date-time" }
+          "timestamp": {
+            "type": "string",
+            "format": "date-time"
+          }
         }
       },
       "RegistrationRequest": {
-        "required": ["firstName", "lastName"],
+        "required": [
+          "firstName",
+          "lastName"
+        ],
         "type": "object",
         "properties": {
           "firstName": {
@@ -586,7 +838,9 @@
             "minLength": 2,
             "type": "string"
           },
-          "email": { "type": "string" },
+          "email": {
+            "type": "string"
+          },
           "password": {
             "maxLength": 2147483647,
             "minLength": 5,
@@ -598,25 +852,44 @@
       "AuthResponse": {
         "type": "object",
         "properties": {
-          "accessToken": { "type": "string" },
-          "userId": { "type": "string" }
+          "accessToken": {
+            "type": "string"
+          },
+          "userId": {
+            "type": "string"
+          }
         }
       },
       "AuthRequest": {
         "type": "object",
         "properties": {
-          "email": { "type": "string" },
-          "password": { "type": "string" }
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
         }
       },
       "User": {
         "type": "object",
         "properties": {
-          "id": { "type": "string" },
-          "fullName": { "type": "string" },
-          "email": { "type": "string" },
-          "dateCreated": { "type": "string", "format": "date-time" },
-          "isVerified": { "type": "boolean" },
+          "id": {
+            "type": "string"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "dateCreated": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "isVerified": {
+            "type": "boolean"
+          },
           "authorities": {
             "type": "array",
             "items": {
@@ -630,136 +903,311 @@
               ]
             }
           },
-          "rating": { "type": "number", "format": "double" },
-          "userInfo": { "$ref": "#/components/schemas/UserInfo" },
-          "userHome": { "$ref": "#/components/schemas/UserHome" },
-          "enabled": { "type": "boolean" },
-          "username": { "type": "string" },
-          "accountNonLocked": { "type": "boolean" },
-          "accountNonExpired": { "type": "boolean" },
-          "credentialsNonExpired": { "type": "boolean" }
+          "rating": {
+            "type": "number",
+            "format": "double"
+          },
+          "userInfo": {
+            "$ref": "#/components/schemas/UserInfo"
+          },
+          "userHome": {
+            "$ref": "#/components/schemas/UserHome"
+          },
+          "enabled": {
+            "type": "boolean"
+          },
+          "accountNonExpired": {
+            "type": "boolean"
+          },
+          "credentialsNonExpired": {
+            "type": "boolean"
+          },
+          "accountNonLocked": {
+            "type": "boolean"
+          },
+          "username": {
+            "type": "string"
+          }
         }
       },
       "UserHome": {
         "type": "object",
         "properties": {
-          "isAcceptingGuests": { "type": "boolean" },
-          "maxGuests": { "minimum": 0, "type": "integer", "format": "int32" },
+          "isAcceptingGuests": {
+            "type": "boolean"
+          },
+          "maxGuests": {
+            "minimum": 0,
+            "type": "integer",
+            "format": "int32"
+          },
           "preferredGender": {
             "type": "string",
-            "enum": ["MALE", "FEMALE", "ANY"]
+            "enum": [
+              "MALE",
+              "FEMALE",
+              "ANY"
+            ]
           },
-          "kidFriendly": { "type": "boolean" },
-          "petFriendly": { "type": "boolean" },
-          "wheelchairAllowed": { "type": "boolean" },
-          "smokingAllowed": { "type": "boolean" },
-          "otherInfo": { "type": "string" },
-          "ihaveKids": { "type": "boolean" },
-          "ihavePets": { "type": "boolean" },
-          "iamSmoker": { "type": "boolean" }
+          "kidFriendly": {
+            "type": "boolean"
+          },
+          "petFriendly": {
+            "type": "boolean"
+          },
+          "wheelchairAllowed": {
+            "type": "boolean"
+          },
+          "smokingAllowed": {
+            "type": "boolean"
+          },
+          "otherInfo": {
+            "type": "string"
+          },
+          "iamSmoker": {
+            "type": "boolean"
+          },
+          "ihavePets": {
+            "type": "boolean"
+          },
+          "ihaveKids": {
+            "type": "boolean"
+          }
         }
       },
       "UserInfo": {
-        "required": ["aboutMe", "age", "location"],
+        "required": [
+          "aboutMe",
+          "age",
+          "location"
+        ],
         "type": "object",
         "properties": {
-          "aboutMe": { "type": "string" },
-          "age": { "minimum": 18, "type": "integer", "format": "int32" },
-          "languages": { "type": "array", "items": { "type": "string" } },
-          "occupation": { "type": "string" },
-          "education": { "type": "string" },
-          "location": { "type": "string" },
-          "userPhotos": { "type": "array", "items": { "type": "string" } }
+          "aboutMe": {
+            "type": "string"
+          },
+          "age": {
+            "minimum": 18,
+            "type": "integer",
+            "format": "int32"
+          },
+          "languages": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "occupation": {
+            "type": "string"
+          },
+          "education": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "userPhotos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
         }
       },
       "PageUser": {
         "type": "object",
         "properties": {
-          "totalElements": { "type": "integer", "format": "int64" },
-          "totalPages": { "type": "integer", "format": "int32" },
-          "size": { "type": "integer", "format": "int32" },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
           "content": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/User" }
+            "items": {
+              "$ref": "#/components/schemas/User"
+            }
           },
-          "number": { "type": "integer", "format": "int32" },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
           "sort": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/SortObject" }
+            "items": {
+              "$ref": "#/components/schemas/SortObject"
+            }
           },
-          "first": { "type": "boolean" },
-          "last": { "type": "boolean" },
-          "numberOfElements": { "type": "integer", "format": "int32" },
-          "pageable": { "$ref": "#/components/schemas/PageableObject" },
-          "empty": { "type": "boolean" }
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "empty": {
+            "type": "boolean"
+          }
         }
       },
       "PageableObject": {
         "type": "object",
         "properties": {
-          "offset": { "type": "integer", "format": "int64" },
+          "offset": {
+            "type": "integer",
+            "format": "int64"
+          },
           "sort": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/SortObject" }
+            "items": {
+              "$ref": "#/components/schemas/SortObject"
+            }
           },
-          "pageNumber": { "type": "integer", "format": "int32" },
-          "pageSize": { "type": "integer", "format": "int32" },
-          "unpaged": { "type": "boolean" },
-          "paged": { "type": "boolean" }
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "unpaged": {
+            "type": "boolean"
+          },
+          "paged": {
+            "type": "boolean"
+          }
         }
       },
       "SortObject": {
         "type": "object",
         "properties": {
-          "direction": { "type": "string" },
-          "nullHandling": { "type": "string" },
-          "ascending": { "type": "boolean" },
-          "property": { "type": "string" },
-          "ignoreCase": { "type": "boolean" }
+          "direction": {
+            "type": "string"
+          },
+          "nullHandling": {
+            "type": "string"
+          },
+          "ascending": {
+            "type": "boolean"
+          },
+          "property": {
+            "type": "string"
+          },
+          "ignoreCase": {
+            "type": "boolean"
+          }
         }
       },
       "PageReview": {
         "type": "object",
         "properties": {
-          "totalElements": { "type": "integer", "format": "int64" },
-          "totalPages": { "type": "integer", "format": "int32" },
-          "size": { "type": "integer", "format": "int32" },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
           "content": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/Review" }
+            "items": {
+              "$ref": "#/components/schemas/Review"
+            }
           },
-          "number": { "type": "integer", "format": "int32" },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
           "sort": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/SortObject" }
+            "items": {
+              "$ref": "#/components/schemas/SortObject"
+            }
           },
-          "first": { "type": "boolean" },
-          "last": { "type": "boolean" },
-          "numberOfElements": { "type": "integer", "format": "int32" },
-          "pageable": { "$ref": "#/components/schemas/PageableObject" },
-          "empty": { "type": "boolean" }
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "empty": {
+            "type": "boolean"
+          }
         }
       },
       "PageRequest": {
         "type": "object",
         "properties": {
-          "totalElements": { "type": "integer", "format": "int64" },
-          "totalPages": { "type": "integer", "format": "int32" },
-          "size": { "type": "integer", "format": "int32" },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "totalElements": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "size": {
+            "type": "integer",
+            "format": "int32"
+          },
           "content": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/Request" }
+            "items": {
+              "$ref": "#/components/schemas/Request"
+            }
           },
-          "number": { "type": "integer", "format": "int32" },
+          "number": {
+            "type": "integer",
+            "format": "int32"
+          },
           "sort": {
             "type": "array",
-            "items": { "$ref": "#/components/schemas/SortObject" }
+            "items": {
+              "$ref": "#/components/schemas/SortObject"
+            }
           },
-          "first": { "type": "boolean" },
-          "last": { "type": "boolean" },
-          "numberOfElements": { "type": "integer", "format": "int32" },
-          "pageable": { "$ref": "#/components/schemas/PageableObject" },
-          "empty": { "type": "boolean" }
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/PageableObject"
+          },
+          "empty": {
+            "type": "boolean"
+          }
         }
       }
     },
