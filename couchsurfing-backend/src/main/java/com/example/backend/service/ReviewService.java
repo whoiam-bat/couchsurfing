@@ -14,8 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -30,22 +28,12 @@ public class ReviewService {
 
     public Review addReview(Review review) {
         User receiver = userService.findUserById(review.getReceiverId());
-        User sender = userService.findUserById(review.getSenderId());
-
-        double rating = reviewRepository.findReviewsByReceiverId(receiver.getId())
-                .stream()
-                .mapToDouble(Review::getRating)
-                .average()
-                .orElse(0.);
-
-        receiver.setRating(
-                (double) Math.round(rating * 10.) / 10.
-        );
-        userService.updateUser(receiver, receiver.getId());
 
         review.setId(new ObjectId().toHexString());
+        Review savedReview = reviewRepository.save(review);
+        updateReceiverRating(receiver);
 
-        return reviewRepository.save(review);
+        return savedReview;
     }
 
     public Review getReview(String reviewId) {
@@ -66,12 +54,14 @@ public class ReviewService {
 
     public Boolean updateReview(Review reviewToUpdate, String reviewId) {
         try {
+            User receiver = userService.findUserById(reviewToUpdate.getReceiverId());
             Review review = getReview(reviewId);
 
             modelMapper.getConfiguration().setSkipNullEnabled(true);
             modelMapper.map(reviewToUpdate, review);
 
             reviewRepository.save(review);
+            updateReceiverRating(receiver);
         } catch (EntityNotFoundException e) {
             throw new EntityUpdateException("Something went wrong with entity update", e);
         }
@@ -80,7 +70,23 @@ public class ReviewService {
     }
 
     public void deleteReview(String reviewId) {
+        Review review = getReview(reviewId);
+        User receiver = userService.findUserById(review.getReceiverId());
+
         reviewRepository.deleteById(reviewId);
+        updateReceiverRating(receiver);
+    }
+
+    private void updateReceiverRating(User receiver) {
+        double rating = reviewRepository.findReviewsByReceiverId(receiver.getId())
+                .stream()
+                .mapToDouble(Review::getRating)
+                .average()
+                .orElse(0.);
+        receiver.setRating(
+                (double) Math.round(rating * 10.) / 10.
+        );
+        userService.updateUser(receiver);
     }
 
 }
