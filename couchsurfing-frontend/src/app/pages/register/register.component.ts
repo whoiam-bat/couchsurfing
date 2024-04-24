@@ -29,7 +29,6 @@ export class RegisterComponent {
     }).subscribe({
       next: (res) => {
         this.storageService.token = res.accessToken as string;
-        this.storageService.userId = res.userId as string;
 
         this.router.navigate(['dashboard'])
       },
