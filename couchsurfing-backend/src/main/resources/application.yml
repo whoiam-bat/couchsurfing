@@ -1,22 +1,11 @@
 spring:
-  data:
-    mongodb:
-      username:
-      password:
-      database: couchsurfing
-      authentication-database: admin
-      uri: mongodb://localhost:27017/couchsurfing
-      host: localhost
-      port: 27017
-      auto-index-creation: true
-
+  profiles:
+    active: dev
+  servlet:
+    multipart:
+      max-file-size: 50MB
 springdoc:
   default-produces-media-type: application/json
-
 server:
   servlet:
     context-path: /api/v1
-
-jwt:
-  secret: "83a8de2498e3257782f152d827e4942a9b8863c06c9bb9e5b806f02b01790147"
-  expiration: 604800000
