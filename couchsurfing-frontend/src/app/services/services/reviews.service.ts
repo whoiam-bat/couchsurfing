@@ -106,7 +106,7 @@ export class ReviewsService extends BaseService {
   }
 
   /** Path part for operation `getOutgoingReviews()` */
-  static readonly GetOutgoingReviewsPath = '/reviews/outgoing/{senderId}';
+  static readonly GetOutgoingReviewsPath = '/reviews/outgoing';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
@@ -131,7 +131,7 @@ export class ReviewsService extends BaseService {
   }
 
   /** Path part for operation `getIncomingReviews()` */
-  static readonly GetIncomingReviewsPath = '/reviews/incoming/{receiverId}';
+  static readonly GetIncomingReviewsPath = '/reviews/incoming';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.

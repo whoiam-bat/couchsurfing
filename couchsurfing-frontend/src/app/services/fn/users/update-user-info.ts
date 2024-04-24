@@ -9,14 +9,12 @@ import { RequestBuilder } from '../../request-builder';
 import { User } from '../../models/user';
 
 export interface UpdateUserInfo$Params {
-  '_userId': string;
       body: User
 }
 
 export function updateUserInfo(http: HttpClient, rootUrl: string, params: UpdateUserInfo$Params, context?: HttpContext): Observable<StrictHttpResponse<User>> {
   const rb = new RequestBuilder(rootUrl, updateUserInfo.PATH, 'patch');
   if (params) {
-    rb.path('_userId', params['_userId'], {});
     rb.body(params.body, 'application/json');
   }
 
@@ -30,4 +28,4 @@ export function updateUserInfo(http: HttpClient, rootUrl: string, params: Update
   );
 }
 
-updateUserInfo.PATH = '/users/{_userId}/update';
+updateUserInfo.PATH = '/users/update';

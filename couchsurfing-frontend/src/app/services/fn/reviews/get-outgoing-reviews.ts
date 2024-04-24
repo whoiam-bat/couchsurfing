@@ -9,7 +9,6 @@ import { RequestBuilder } from '../../request-builder';
 import { PageReview } from '../../models/page-review';
 
 export interface GetOutgoingReviews$Params {
-  senderId: string;
   page: number;
   size: number;
 }
@@ -17,7 +16,6 @@ export interface GetOutgoingReviews$Params {
 export function getOutgoingReviews(http: HttpClient, rootUrl: string, params: GetOutgoingReviews$Params, context?: HttpContext): Observable<StrictHttpResponse<PageReview>> {
   const rb = new RequestBuilder(rootUrl, getOutgoingReviews.PATH, 'get');
   if (params) {
-    rb.path('senderId', params.senderId, {});
     rb.query('page', params.page, {});
     rb.query('size', params.size, {});
   }
@@ -32,4 +30,4 @@ export function getOutgoingReviews(http: HttpClient, rootUrl: string, params: Ge
   );
 }
 
-getOutgoingReviews.PATH = '/reviews/outgoing/{senderId}';
+getOutgoingReviews.PATH = '/reviews/outgoing';

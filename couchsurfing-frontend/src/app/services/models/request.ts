@@ -1,6 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 export interface Request {
+  dateCreated?: string;
   from?: string;
   id?: string;
   location?: string;
@@ -9,7 +10,6 @@ export interface Request {
   requestStatus?: 'CREATED' | 'ACCEPTED' | 'DECLINED' | 'CANCELED' | 'COMPLETED';
   sender?: string;
   serviceType?: 'ACCOMMODATION_PROVISION' | 'ACCOMMODATION_REQUEST';
-  timestamp?: string;
   to?: string;
   travelersAmount?: number;
 }

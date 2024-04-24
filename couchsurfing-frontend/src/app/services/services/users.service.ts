@@ -25,7 +25,7 @@ export class UsersService extends BaseService {
   }
 
   /** Path part for operation `updateUserInfo()` */
-  static readonly UpdateUserInfoPath = '/users/{_userId}/update';
+  static readonly UpdateUserInfoPath = '/users/update';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.

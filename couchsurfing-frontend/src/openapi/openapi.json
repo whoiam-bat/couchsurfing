@@ -147,22 +147,12 @@
         }
       }
     },
-    "/users/{_userId}/update": {
+    "/users/update": {
       "patch": {
         "tags": [
           "Users"
         ],
         "operationId": "updateUserInfo",
-        "parameters": [
-          {
-            "name": "_userId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -393,7 +383,7 @@
         }
       }
     },
-    "/reviews/outgoing/{senderId}": {
+    "/reviews/outgoing": {
       "get": {
         "tags": [
           "Reviews"
@@ -401,14 +391,6 @@
         "operationId": "getOutgoingReviews",
         "parameters": [
           {
-            "name": "senderId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "name": "page",
             "in": "query",
             "required": true,
@@ -441,7 +423,7 @@
         }
       }
     },
-    "/reviews/incoming/{receiverId}": {
+    "/reviews/incoming": {
       "get": {
         "tags": [
           "Reviews"
@@ -449,14 +431,6 @@
         "operationId": "getIncomingReviews",
         "parameters": [
           {
-            "name": "receiverId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "name": "page",
             "in": "query",
             "required": true,
@@ -482,92 +456,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PageReview"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/requests/{senderId}/outgoing": {
-      "get": {
-        "tags": [
-          "Requests"
-        ],
-        "operationId": "getOutgoingRequests",
-        "parameters": [
-          {
-            "name": "senderId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "size",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PageRequest"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/requests/{senderId}/outgoing/{requestId}": {
-      "get": {
-        "tags": [
-          "Requests"
-        ],
-        "operationId": "getOutgoingRequest",
-        "parameters": [
-          {
-            "name": "senderId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "requestId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Request"
                 }
               }
             }
@@ -613,21 +501,53 @@
         }
       }
     },
-    "/requests/{receiverId}/incoming": {
+    "/requests/outgoing": {
+      "get": {
+        "tags": [
+          "Requests"
+        ],
+        "operationId": "getOutgoingRequests",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PageRequest"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/requests/incoming": {
       "get": {
         "tags": [
           "Requests"
         ],
         "operationId": "getIncomingRequests",
         "parameters": [
-          {
-            "name": "receiverId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
           {
             "name": "location",
             "in": "query",
@@ -761,7 +681,7 @@
           "reviewMessage": {
             "type": "string"
           },
-          "timestamp": {
+          "dateCreated": {
             "type": "string",
             "format": "date-time"
           }
@@ -815,7 +735,7 @@
               "COMPLETED"
             ]
           },
-          "timestamp": {
+          "dateCreated": {
             "type": "string",
             "format": "date-time"
           }
@@ -916,6 +836,9 @@
           "enabled": {
             "type": "boolean"
           },
+          "username": {
+            "type": "string"
+          },
           "accountNonExpired": {
             "type": "boolean"
           },
@@ -924,9 +847,6 @@
           },
           "accountNonLocked": {
             "type": "boolean"
-          },
-          "username": {
-            "type": "string"
           }
         }
       },
@@ -964,13 +884,13 @@
           "otherInfo": {
             "type": "string"
           },
-          "iamSmoker": {
-            "type": "boolean"
-          },
           "ihavePets": {
             "type": "boolean"
           },
           "ihaveKids": {
+            "type": "boolean"
+          },
+          "iamSmoker": {
             "type": "boolean"
           }
         }
@@ -1045,15 +965,15 @@
               "$ref": "#/components/schemas/SortObject"
             }
           },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
-          },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -1076,18 +996,18 @@
               "$ref": "#/components/schemas/SortObject"
             }
           },
-          "pageNumber": {
-            "type": "integer",
-            "format": "int32"
-          },
           "pageSize": {
             "type": "integer",
             "format": "int32"
           },
-          "unpaged": {
-            "type": "boolean"
+          "pageNumber": {
+            "type": "integer",
+            "format": "int32"
           },
           "paged": {
+            "type": "boolean"
+          },
+          "unpaged": {
             "type": "boolean"
           }
         }
@@ -1143,15 +1063,15 @@
               "$ref": "#/components/schemas/SortObject"
             }
           },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
-          },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -1192,15 +1112,15 @@
               "$ref": "#/components/schemas/SortObject"
             }
           },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
-          },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"

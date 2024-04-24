@@ -9,7 +9,6 @@ import { RequestBuilder } from '../../request-builder';
 import { PageRequest } from '../../models/page-request';
 
 export interface GetOutgoingRequests$Params {
-  senderId: string;
   page: number;
   size: number;
 }
@@ -17,7 +16,6 @@ export interface GetOutgoingRequests$Params {
 export function getOutgoingRequests(http: HttpClient, rootUrl: string, params: GetOutgoingRequests$Params, context?: HttpContext): Observable<StrictHttpResponse<PageRequest>> {
   const rb = new RequestBuilder(rootUrl, getOutgoingRequests.PATH, 'get');
   if (params) {
-    rb.path('senderId', params.senderId, {});
     rb.query('page', params.page, {});
     rb.query('size', params.size, {});
   }
@@ -32,4 +30,4 @@ export function getOutgoingRequests(http: HttpClient, rootUrl: string, params: G
   );
 }
 
-getOutgoingRequests.PATH = '/requests/{senderId}/outgoing';
+getOutgoingRequests.PATH = '/requests/outgoing';

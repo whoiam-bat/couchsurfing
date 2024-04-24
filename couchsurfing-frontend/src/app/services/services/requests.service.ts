@@ -13,8 +13,6 @@ import { deleteRequest } from '../fn/requests/delete-request';
 import { DeleteRequest$Params } from '../fn/requests/delete-request';
 import { getIncomingRequests } from '../fn/requests/get-incoming-requests';
 import { GetIncomingRequests$Params } from '../fn/requests/get-incoming-requests';
-import { getOutgoingRequest } from '../fn/requests/get-outgoing-request';
-import { GetOutgoingRequest$Params } from '../fn/requests/get-outgoing-request';
 import { getOutgoingRequests } from '../fn/requests/get-outgoing-requests';
 import { GetOutgoingRequests$Params } from '../fn/requests/get-outgoing-requests';
 import { getRequest } from '../fn/requests/get-request';
@@ -82,56 +80,6 @@ export class RequestsService extends BaseService {
     );
   }
 
-  /** Path part for operation `getOutgoingRequests()` */
-  static readonly GetOutgoingRequestsPath = '/requests/{senderId}/outgoing';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getOutgoingRequests()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getOutgoingRequests$Response(params: GetOutgoingRequests$Params, context?: HttpContext): Observable<StrictHttpResponse<PageRequest>> {
-    return getOutgoingRequests(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getOutgoingRequests$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getOutgoingRequests(params: GetOutgoingRequests$Params, context?: HttpContext): Observable<PageRequest> {
-    return this.getOutgoingRequests$Response(params, context).pipe(
-      map((r: StrictHttpResponse<PageRequest>): PageRequest => r.body)
-    );
-  }
-
-  /** Path part for operation `getOutgoingRequest()` */
-  static readonly GetOutgoingRequestPath = '/requests/{senderId}/outgoing/{requestId}';
-
-  /**
-   * This method provides access to the full `HttpResponse`, allowing access to response headers.
-   * To access only the response body, use `getOutgoingRequest()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getOutgoingRequest$Response(params: GetOutgoingRequest$Params, context?: HttpContext): Observable<StrictHttpResponse<Request>> {
-    return getOutgoingRequest(this.http, this.rootUrl, params, context);
-  }
-
-  /**
-   * This method provides access only to the response body.
-   * To access the full response (for headers, for example), `getOutgoingRequest$Response()` instead.
-   *
-   * This method doesn't expect any request body.
-   */
-  getOutgoingRequest(params: GetOutgoingRequest$Params, context?: HttpContext): Observable<Request> {
-    return this.getOutgoingRequest$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Request>): Request => r.body)
-    );
-  }
-
   /** Path part for operation `getRequest()` */
   static readonly GetRequestPath = '/requests/{requestId}';
 
@@ -157,8 +105,33 @@ export class RequestsService extends BaseService {
     );
   }
 
+  /** Path part for operation `getOutgoingRequests()` */
+  static readonly GetOutgoingRequestsPath = '/requests/outgoing';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getOutgoingRequests()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getOutgoingRequests$Response(params: GetOutgoingRequests$Params, context?: HttpContext): Observable<StrictHttpResponse<PageRequest>> {
+    return getOutgoingRequests(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getOutgoingRequests$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getOutgoingRequests(params: GetOutgoingRequests$Params, context?: HttpContext): Observable<PageRequest> {
+    return this.getOutgoingRequests$Response(params, context).pipe(
+      map((r: StrictHttpResponse<PageRequest>): PageRequest => r.body)
+    );
+  }
+
   /** Path part for operation `getIncomingRequests()` */
-  static readonly GetIncomingRequestsPath = '/requests/{receiverId}/incoming';
+  static readonly GetIncomingRequestsPath = '/requests/incoming';
 
   /**
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
