@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -31,28 +32,21 @@ public class RequestController {
         return ResponseEntity.ok(request);
     }
 
-    @GetMapping("/{receiverId}/incoming")
-    public ResponseEntity<Page<Request>> getIncomingRequests(@PathVariable String receiverId,
-                                                             @RequestParam String location,
+    @GetMapping("/incoming")
+    public ResponseEntity<Page<Request>> getIncomingRequests(@RequestParam String location,
                                                              @RequestParam int page,
-                                                             @RequestParam int size) {
-
-        return ResponseEntity.ok(requestService.getIncomingRequests(receiverId, location, page, size));
+                                                             @RequestParam int size,
+                                                             Authentication connectedUser) {
+        // TODO - add RequestStatus to RequestParams to select requests by RequestStatus dynamically
+        return ResponseEntity.ok(requestService.getIncomingRequests(connectedUser, location, page, size));
     }
 
-    @GetMapping("/{senderId}/outgoing")
-    public ResponseEntity<Page<Request>> getOutgoingRequests(@PathVariable String senderId,
-                                                             @RequestParam int page,
-                                                             @RequestParam int size) {
-
-        return ResponseEntity.ok(requestService.getOutgoingRequests(senderId, page, size));
-    }
-
-    @GetMapping("/{senderId}/outgoing/{requestId}")
-    public ResponseEntity<Request> getOutgoingRequest(@PathVariable String senderId,
-                                                      @PathVariable String requestId) {
-
-        return ResponseEntity.ok(requestService.getOutgoingRequest(senderId, requestId));
+    @GetMapping("/outgoing")
+    public ResponseEntity<Page<Request>> getOutgoingRequests(@RequestParam int page,
+                                                             @RequestParam int size,
+                                                             Authentication connectedUser) {
+        // TODO - add RequestStatus to RequestParams to select requests by RequestStatus dynamically
+        return ResponseEntity.ok(requestService.getOutgoingRequests(connectedUser, page, size));
     }
 
     @PatchMapping("/update/{requestId}")

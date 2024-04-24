@@ -12,9 +12,10 @@ import org.bson.types.ObjectId;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -51,21 +52,34 @@ public class RequestService {
         return optionalRequest.orElseThrow(() -> new EntityNotFoundException("Request not found!"));
     }
 
-    public Page<Request> getIncomingRequests(String receiverId, String location, int page, int size) {
-        return requestRepository.findRequestsByReceiverAndLocation(receiverId, location, PageRequest.of(page, size));
+    public Page<Request> getIncomingRequests(Authentication authentication, String location, int page, int size) {
+        User receiver = (User) authentication.getPrincipal();
+
+        return requestRepository.findRequestsByReceiverAndLocationAndRequestStatusContaining(
+                receiver.getId(),
+                location,
+                List.of(RequestStatus.CREATED, RequestStatus.ACCEPTED, RequestStatus.COMPLETED),
+                PageRequest.of(page, size)
+        );
     }
 
-    public Page<Request> getOutgoingRequests(String senderId, int page, int size) {
-        return requestRepository.findRequestsBySender(senderId, PageRequest.of(page, size));
-    }
+    public Page<Request> getOutgoingRequests(Authentication authentication, int page, int size) {
+        User sender = (User) authentication.getPrincipal();
 
-    public Request getOutgoingRequest(String senderId, String requestId) {
-        Optional<Request> optionalRequest = requestRepository.findRequestByIdAndSender(requestId, senderId);
-
-        return optionalRequest.orElseThrow(() -> new EntityNotFoundException("Request not found!"));
+        return requestRepository.findRequestsBySenderAndRequestStatusContaining(
+                sender.getId(),
+                List.of(RequestStatus.CREATED, RequestStatus.ACCEPTED, RequestStatus.COMPLETED),
+                PageRequest.of(page, size)
+        );
     }
 
     public Boolean updateRequest(String requestId, Request requestToUpdate) {
+        if (requestToUpdate.getRequestStatus().equals(RequestStatus.CANCELED) ||
+                requestToUpdate.getRequestStatus().equals(RequestStatus.DECLINED)) {
+            deleteRequest(requestId);
+            return true;
+        }
+
         try {
             Request request = getRequest(requestId);
 
