@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,16 +51,21 @@ public class UserService {
     }
 
     @Transactional
-    public User updateUser(User userToUpdate, String userId) {
-        User userFromDb = findUserById(userId);
+    public User updateUser(User userToUpdate, Authentication authentication) {
+        User connectedUser = (User) authentication.getPrincipal();
 
         modelMapper.getConfiguration().setSkipNullEnabled(true);
-        modelMapper.map(userToUpdate, userFromDb);
+        modelMapper.map(userToUpdate, connectedUser);
 
-        if (userToUpdate.getUserHome() != null && !userFromDb.getAuthorities().contains(Authority.ROLE_HOST))
-            userFromDb.getAuthorities().add(Authority.ROLE_HOST);
+        if (connectedUser.getUserHome() != null && !connectedUser.getAuthorities().contains(Authority.ROLE_HOST))
+            connectedUser.getAuthorities().add(Authority.ROLE_HOST);
 
-        return save(userFromDb);
+        return save(connectedUser);
+    }
+
+    @Transactional
+    public void updateUser(User userToUpdate) {
+        save(userToUpdate);
     }
 
     @Transactional

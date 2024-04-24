@@ -1,13 +1,13 @@
 package com.example.backend.controller;
 
 import com.example.backend.model.User;
-import com.example.backend.service.ReviewService;
 import com.example.backend.service.UserService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
-
-    private final ReviewService reviewService;
 
 
     @GetMapping("/hosts")
@@ -38,11 +36,10 @@ public class UserController {
         return ResponseEntity.ok(userService.findSurfers(location, page, size));
     }
 
-    @PatchMapping("/{_userId}/update")
-    public ResponseEntity<User> updateUserInfo(@PathVariable(name = "_userId") String userId,
-                                               @RequestBody User user) {
+    @PatchMapping("/update")
+    public ResponseEntity<User> updateUserInfo(@RequestBody User user, Authentication connectedUser) {
 
-        return ResponseEntity.ok(userService.updateUser(user, userId));
+        return ResponseEntity.ok(userService.updateUser(user, connectedUser));
     }
 
 }
