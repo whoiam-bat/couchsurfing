@@ -38,7 +38,7 @@ public class ReviewService {
                 .orElse(0.);
 
         receiver.setRating(
-                (double) Math.round(rating * 100) / 100
+                (double) Math.round(rating * 10.) / 10.
         );
         userService.updateUser(receiver, receiver.getId());
 
