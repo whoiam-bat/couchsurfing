@@ -11,6 +11,7 @@ import org.bson.types.ObjectId;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -51,12 +52,16 @@ public class ReviewService {
         return reviewRepository.findById(reviewId).orElseThrow(() -> new EntityNotFoundException("Review not found"));
     }
 
-    public Page<Review> getIncomingReviews(String receiverId, int page, int size) {
-        return reviewRepository.findReviewByReceiverId(receiverId, PageRequest.of(page, size));
+    public Page<Review> getIncomingReviews(Authentication authentication, int page, int size) {
+        User receiver = (User) authentication.getPrincipal();
+
+        return reviewRepository.findReviewByReceiverId(receiver.getId(), PageRequest.of(page, size));
     }
 
-    public Page<Review> getOutgoingReviews(String senderId, int page, int size) {
-        return reviewRepository.findReviewBySenderId(senderId, PageRequest.of(page, size));
+    public Page<Review> getOutgoingReviews(Authentication authentication, int page, int size) {
+        User sender = (User) authentication.getPrincipal();
+
+        return reviewRepository.findReviewBySenderId(sender.getId(), PageRequest.of(page, size));
     }
 
     public Boolean updateReview(Review reviewToUpdate, String reviewId) {

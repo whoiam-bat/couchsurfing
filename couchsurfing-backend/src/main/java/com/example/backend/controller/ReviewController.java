@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -27,18 +28,18 @@ public class ReviewController {
         return ResponseEntity.ok(reviewService.getReview(reviewId));
     }
 
-    @GetMapping("/incoming/{receiverId}")
-    public ResponseEntity<Page<Review>> getIncomingReviews(@PathVariable String receiverId,
-                                                           @RequestParam int page,
-                                                           @RequestParam int size) {
-        return ResponseEntity.ok(reviewService.getIncomingReviews(receiverId, page, size));
+    @GetMapping("/incoming")
+    public ResponseEntity<Page<Review>> getIncomingReviews(@RequestParam int page,
+                                                           @RequestParam int size,
+                                                           Authentication connectedUser) {
+        return ResponseEntity.ok(reviewService.getIncomingReviews(connectedUser, page, size));
     }
 
-    @GetMapping("/outgoing/{senderId}")
-    public ResponseEntity<Page<Review>> getOutgoingReviews(@PathVariable String senderId,
-                                                           @RequestParam int page,
-                                                           @RequestParam int size) {
-        return ResponseEntity.ok(reviewService.getOutgoingReviews(senderId, page, size));
+    @GetMapping("/outgoing")
+    public ResponseEntity<Page<Review>> getOutgoingReviews(@RequestParam int page,
+                                                           @RequestParam int size,
+                                                           Authentication connectedUser) {
+        return ResponseEntity.ok(reviewService.getOutgoingReviews(connectedUser, page, size));
     }
 
     @PatchMapping("/update/{reviewId}")
