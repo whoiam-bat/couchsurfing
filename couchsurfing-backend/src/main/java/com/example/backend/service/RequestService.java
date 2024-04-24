@@ -33,7 +33,6 @@ public class RequestService {
             throw new DateMismatchException("Invalid dates order! The check-out date must be later than the check-in date.");
 
         request.setId(new ObjectId().toHexString());
-        request.setTimestamp(new Date());
 
         // TODO: send request message to HOST email
 

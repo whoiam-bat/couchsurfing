@@ -18,7 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @RequiredArgsConstructor
 @Configuration
 @ComponentScan("com.example.backend")
-@PropertySource("classpath:application.dev.yml")
+//@PropertySource("classpath:application-dev.yml")
 public class SpringConfiguration {
 
     private final UserService userService;

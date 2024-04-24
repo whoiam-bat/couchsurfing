@@ -33,7 +33,6 @@ public class AuthService {
                         .fullName(registrationRequest.getFirstName() + " " + registrationRequest.getLastName())
                         .email(registrationRequest.getEmail())
                         .password(passwordEncoder.encode(registrationRequest.getPassword()))
-                        .dateCreated(new Date())
                         .isVerified(false)
                         .authorities(List.of(Authority.ROLE_USER, Authority.ROLE_SURFER))
                         .rating(0.)

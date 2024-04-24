@@ -43,7 +43,6 @@ public class ReviewService {
         userService.updateUser(receiver, receiver.getId());
 
         review.setId(new ObjectId().toHexString());
-        review.setTimestamp(new Date());
 
         return reviewRepository.save(review);
     }
