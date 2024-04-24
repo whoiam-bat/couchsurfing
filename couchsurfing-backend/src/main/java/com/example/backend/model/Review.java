@@ -1,14 +1,16 @@
 package com.example.backend.model;
 
 import com.example.backend.model.enums.ServiceType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Document(collection = "reviews")
 @Data
@@ -32,5 +34,9 @@ public class Review {
     private String reviewMessage;
 
     @CreatedDate
-    private Date timestamp;
+    private LocalDateTime dateCreated;
+
+    @Version
+    @JsonIgnore
+    private Integer version;
 }

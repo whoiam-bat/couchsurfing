@@ -2,14 +2,17 @@ package com.example.backend.model;
 
 import com.example.backend.model.enums.RequestStatus;
 import com.example.backend.model.enums.ServiceType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 
@@ -42,7 +45,11 @@ public class Request {
     private RequestStatus requestStatus;
 
     @CreatedDate
-    private Date timestamp;
+    private LocalDateTime dateCreated;
+
+    @Version
+    @JsonIgnore
+    private Integer version;
 }
 
 
