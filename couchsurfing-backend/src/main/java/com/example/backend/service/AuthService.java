@@ -40,7 +40,7 @@ public class AuthService {
 
         String token = jwtService.generateToken(user);
 
-        return constructResponse(token, user.getId());
+        return constructResponse(token);
     }
 
     public AuthResponse authenticate(AuthRequest authRequest) {
@@ -54,13 +54,12 @@ public class AuthService {
         User user = userService.findByUsername(authRequest.getEmail());
         String token = jwtService.generateToken(user);
 
-        return constructResponse(token, user.getId());
+        return constructResponse(token);
     }
 
-    private AuthResponse constructResponse(String token, String userId) {
+    private AuthResponse constructResponse(String token) {
         return AuthResponse.builder()
                 .accessToken(token)
-                .userId(userId)
                 .build();
     }
 
