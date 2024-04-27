@@ -1,8 +1,8 @@
 package com.example.backend.model.dto;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,10 +14,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AuthRequest {
     @Email(message = "Invalid email format.")
+    @NotBlank(message = "Email is mandatory")
     private String email;
 
-    @Pattern(regexp = "^([a-zA-Z]){2,} ([a-zA-Z]){2,}$",
-            message = "Login should represent your full name.")
-    @Size(min = 5, message = "Login length should be at least 5 characters.")
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\\\S+$).{5,20}$",
+            message = "Invalid password format!\n" +
+                    "Correct format: Length from 5 to 20; without spaces; at least one digit, uppercase and lowercase character.")
     private String password;
 }
