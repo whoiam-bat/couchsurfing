@@ -20,6 +20,16 @@ public class UserController {
     private final UserService userService;
 
 
+    @GetMapping("/authenticated-user")
+    public ResponseEntity<User> getAuthenticatedUser(Authentication connectedUser) {
+        return ResponseEntity.ok((User) connectedUser.getPrincipal());
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<User> getUserById(@PathVariable String userId) {
+        return ResponseEntity.ok(userService.findUserById(userId));
+    }
+
     @GetMapping("/hosts")
     public ResponseEntity<Page<User>> getHosts(@RequestParam @NotBlank String location,
                                                @RequestParam int page,

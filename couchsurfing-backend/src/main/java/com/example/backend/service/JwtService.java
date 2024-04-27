@@ -23,6 +23,9 @@ public class JwtService {
     @Value(value = "${jwt.expiration}")
     private long expiration;
 
+    @Value(value = "${jwt.issuer}")
+    private String issuer;
+
 
     public String generateToken(UserDetails userDetails) {
         return generateToken(new HashMap<>(), userDetails);
@@ -33,6 +36,7 @@ public class JwtService {
                 .claims(extraClaims)
                 .subject(userDetails.getUsername())
                 .issuedAt(new Date(System.currentTimeMillis()))
+                .issuer(issuer)
                 .expiration(new Date(System.currentTimeMillis() + expiration))
                 .signWith(getSignInKey())
                 .compact();
