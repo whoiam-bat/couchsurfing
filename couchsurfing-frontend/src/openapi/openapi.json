@@ -730,10 +730,6 @@
           },
           "reviewMessage": {
             "type": "string"
-          },
-          "dateCreated": {
-            "type": "string",
-            "format": "date-time"
           }
         }
       },
@@ -784,10 +780,6 @@
               "CANCELED",
               "COMPLETED"
             ]
-          },
-          "dateCreated": {
-            "type": "string",
-            "format": "date-time"
           }
         }
       },
@@ -916,13 +908,13 @@
           "otherInfo": {
             "type": "string"
           },
-          "iamSmoker": {
-            "type": "boolean"
-          },
           "ihaveKids": {
             "type": "boolean"
           },
           "ihavePets": {
+            "type": "boolean"
+          },
+          "iamSmoker": {
             "type": "boolean"
           }
         }
@@ -969,13 +961,13 @@
       "PageUser": {
         "type": "object",
         "properties": {
-          "totalPages": {
-            "type": "integer",
-            "format": "int32"
-          },
           "totalElements": {
             "type": "integer",
             "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
           },
           "size": {
             "type": "integer",
@@ -997,15 +989,15 @@
               "$ref": "#/components/schemas/SortObject"
             }
           },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
-          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -1067,13 +1059,13 @@
       "PageReview": {
         "type": "object",
         "properties": {
-          "totalPages": {
-            "type": "integer",
-            "format": "int32"
-          },
           "totalElements": {
             "type": "integer",
             "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
           },
           "size": {
             "type": "integer",
@@ -1095,15 +1087,15 @@
               "$ref": "#/components/schemas/SortObject"
             }
           },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
-          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -1116,13 +1108,13 @@
       "PageRequest": {
         "type": "object",
         "properties": {
-          "totalPages": {
-            "type": "integer",
-            "format": "int32"
-          },
           "totalElements": {
             "type": "integer",
             "format": "int64"
+          },
+          "totalPages": {
+            "type": "integer",
+            "format": "int32"
           },
           "size": {
             "type": "integer",
@@ -1144,15 +1136,15 @@
               "$ref": "#/components/schemas/SortObject"
             }
           },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
-          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
