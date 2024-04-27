@@ -21,4 +21,10 @@ public interface UserRepository extends MongoRepository<User, String> {
             Boolean isAcceptingGuests,
             Pageable pageable
     );
+
+    Page<User> findUsersByAuthoritiesContainingAndUserInfoLocation(
+            List<Authority> authority,
+            String location,
+            Pageable pageable
+    );
 }

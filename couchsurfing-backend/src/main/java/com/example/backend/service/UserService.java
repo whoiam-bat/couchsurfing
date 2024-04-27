@@ -33,10 +33,9 @@ public class UserService {
     }
 
     public Page<User> findSurfers(String location, int page, int size) {
-        return userRepository.findUsersByAuthoritiesContainingAndUserInfoLocationAndUserHomeIsAcceptingGuests(
+        return userRepository.findUsersByAuthoritiesContainingAndUserInfoLocation(
                 List.of(Authority.ROLE_SURFER),
                 location,
-                false,
                 PageRequest.of(page, size)
         );
     }
