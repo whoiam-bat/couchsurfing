@@ -17,7 +17,7 @@ public class AuthRequest {
     @NotBlank(message = "Email is mandatory")
     private String email;
 
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\\\S+$).{5,20}$",
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{5,20}$",
             message = "Invalid password format!\n" +
                     "Correct format: Length from 5 to 20; without spaces; at least one digit, uppercase and lowercase character.")
     private String password;
