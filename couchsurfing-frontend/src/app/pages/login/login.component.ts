@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthRequest} from 'src/app/services/models';
 import {AuthenticationService} from 'src/app/services/services';
-import {StorageService} from "../../../services/storage/storage.service";
+import {StorageService} from "../../services/storage/storage.service";
 
 @Component({
   selector: 'app-login',

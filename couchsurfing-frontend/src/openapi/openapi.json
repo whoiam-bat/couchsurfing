@@ -257,6 +257,36 @@
         }
       }
     },
+    "/users/{userId}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "getUserById",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/users/surfers": {
       "get": {
         "tags": [
@@ -346,6 +376,26 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PageUser"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/authenticated-user": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "operationId": "getAuthenticatedUser",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
                 }
               }
             }
@@ -829,21 +879,6 @@
           },
           "userHome": {
             "$ref": "#/components/schemas/UserHome"
-          },
-          "enabled": {
-            "type": "boolean"
-          },
-          "username": {
-            "type": "string"
-          },
-          "credentialsNonExpired": {
-            "type": "boolean"
-          },
-          "accountNonExpired": {
-            "type": "boolean"
-          },
-          "accountNonLocked": {
-            "type": "boolean"
           }
         }
       },
@@ -884,10 +919,10 @@
           "iamSmoker": {
             "type": "boolean"
           },
-          "ihavePets": {
+          "ihaveKids": {
             "type": "boolean"
           },
-          "ihaveKids": {
+          "ihavePets": {
             "type": "boolean"
           }
         }
@@ -962,15 +997,15 @@
               "$ref": "#/components/schemas/SortObject"
             }
           },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
-          },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -1060,15 +1095,15 @@
               "$ref": "#/components/schemas/SortObject"
             }
           },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
-          },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
@@ -1109,15 +1144,15 @@
               "$ref": "#/components/schemas/SortObject"
             }
           },
+          "numberOfElements": {
+            "type": "integer",
+            "format": "int32"
+          },
           "first": {
             "type": "boolean"
           },
           "last": {
             "type": "boolean"
-          },
-          "numberOfElements": {
-            "type": "integer",
-            "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
