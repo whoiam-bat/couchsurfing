@@ -45,6 +45,7 @@ public class Request {
     private RequestStatus requestStatus;
 
     @CreatedDate
+    @JsonIgnore
     private LocalDateTime dateCreated;
 
     @Version

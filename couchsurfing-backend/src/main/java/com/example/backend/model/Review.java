@@ -34,6 +34,7 @@ public class Review {
     private String reviewMessage;
 
     @CreatedDate
+    @JsonIgnore
     private LocalDateTime dateCreated;
 
     @Version
