@@ -31,6 +31,7 @@ public class User implements UserDetails {
     private String password;
 
     @CreatedDate
+    @JsonIgnore
     private Date dateCreated;
 
     private Boolean isVerified;
