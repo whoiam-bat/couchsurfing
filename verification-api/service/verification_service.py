@@ -6,10 +6,9 @@ import model.verification_request
 
 
 def decode_image(source_image):
-    decoded = base64.b64decode(source_image)
+    decoded = base64.b64decode(source_image.split('base64,')[1])
     nparr = np.frombuffer(decoded, np.uint8)
     img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-
     return img
 
 
@@ -35,7 +34,6 @@ def verify(request: model.verification_request.VerificationData):
         return False
 
     mrz = retrieve_data_from_mrz(img_data[-2])
-
     return str.upper(firstname) in mrz and str.upper(lastname) in mrz
 
 

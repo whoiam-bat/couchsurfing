@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from starlette.middleware.cors import CORSMiddleware
 
 import model.verification_request
 import model.verification_response
@@ -9,6 +10,17 @@ app = FastAPI(
 )
 
 APP_CONTEXT = 'verification/api/v1'
+
+origins = [
+    "http://localhost:4200",
+]
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.post(f"/{APP_CONTEXT}", response_model=model.verification_response.ResponseData)
