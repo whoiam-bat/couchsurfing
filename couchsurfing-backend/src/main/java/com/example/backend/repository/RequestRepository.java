@@ -2,6 +2,7 @@ package com.example.backend.repository;
 
 import com.example.backend.model.Request;
 import com.example.backend.model.enums.RequestStatus;
+import com.example.backend.model.enums.ServiceType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -15,15 +16,16 @@ public interface RequestRepository extends MongoRepository<Request, String> {
 
     Optional<Request> findByIdAndLocation(String requestId, String location);
 
-    Page<Request> findRequestsByReceiverAndLocationAndRequestStatusContaining(
+    Page<Request> findRequestsByReceiverAndServiceTypeAndRequestStatusIn(
             String receiverId,
-            String location,
+            ServiceType serviceType,
             List<RequestStatus> requestStatus,
             Pageable pageable
     );
 
-    Page<Request> findRequestsBySenderAndRequestStatusContaining(
+    Page<Request> findRequestsBySenderAndServiceTypeAndRequestStatusIn(
             String senderId,
+            ServiceType serviceType,
             List<RequestStatus> requestStatus,
             Pageable pageable
     );

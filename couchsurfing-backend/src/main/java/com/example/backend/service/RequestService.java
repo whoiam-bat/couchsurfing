@@ -6,6 +6,7 @@ import com.example.backend.exception.EntityUpdateException;
 import com.example.backend.model.Request;
 import com.example.backend.model.User;
 import com.example.backend.model.enums.RequestStatus;
+import com.example.backend.model.enums.ServiceType;
 import com.example.backend.repository.RequestRepository;
 import lombok.RequiredArgsConstructor;
 import org.bson.types.ObjectId;
@@ -21,8 +22,6 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class RequestService {
-
-    private final UserService userService;
 
     private final RequestRepository requestRepository;
 
@@ -52,22 +51,25 @@ public class RequestService {
         return optionalRequest.orElseThrow(() -> new EntityNotFoundException("Request not found!"));
     }
 
-    public Page<Request> getIncomingRequests(Authentication authentication, String location, int page, int size) {
+    public Page<Request> getIncomingRequests(Authentication authentication,
+                                             int page, int size) {
         User receiver = (User) authentication.getPrincipal();
 
-        return requestRepository.findRequestsByReceiverAndLocationAndRequestStatusContaining(
+        return requestRepository.findRequestsByReceiverAndServiceTypeAndRequestStatusIn(
                 receiver.getId(),
-                location,
+                ServiceType.ACCOMMODATION_REQUEST,
                 List.of(RequestStatus.CREATED, RequestStatus.ACCEPTED, RequestStatus.COMPLETED),
                 PageRequest.of(page, size)
         );
     }
 
-    public Page<Request> getOutgoingRequests(Authentication authentication, int page, int size) {
+    public Page<Request> getOutgoingRequests(Authentication authentication,
+                                             int page, int size) {
         User sender = (User) authentication.getPrincipal();
 
-        return requestRepository.findRequestsBySenderAndRequestStatusContaining(
+        return requestRepository.findRequestsBySenderAndServiceTypeAndRequestStatusIn(
                 sender.getId(),
+                ServiceType.ACCOMMODATION_REQUEST,
                 List.of(RequestStatus.CREATED, RequestStatus.ACCEPTED, RequestStatus.COMPLETED),
                 PageRequest.of(page, size)
         );

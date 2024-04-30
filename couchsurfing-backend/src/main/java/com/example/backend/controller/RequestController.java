@@ -33,12 +33,13 @@ public class RequestController {
     }
 
     @GetMapping("/incoming")
-    public ResponseEntity<Page<Request>> getIncomingRequests(@RequestParam String location,
-                                                             @RequestParam int page,
+    public ResponseEntity<Page<Request>> getIncomingRequests(@RequestParam int page,
                                                              @RequestParam int size,
                                                              Authentication connectedUser) {
         // TODO - add RequestStatus to RequestParams to select requests by RequestStatus dynamically
-        return ResponseEntity.ok(requestService.getIncomingRequests(connectedUser, location, page, size));
+        return ResponseEntity.ok(
+                requestService.getIncomingRequests(connectedUser, page, size)
+        );
     }
 
     @GetMapping("/outgoing")
@@ -46,7 +47,9 @@ public class RequestController {
                                                              @RequestParam int size,
                                                              Authentication connectedUser) {
         // TODO - add RequestStatus to RequestParams to select requests by RequestStatus dynamically
-        return ResponseEntity.ok(requestService.getOutgoingRequests(connectedUser, page, size));
+        return ResponseEntity.ok(
+                requestService.getOutgoingRequests(connectedUser, page, size)
+        );
     }
 
     @PatchMapping("/update/{requestId}")
