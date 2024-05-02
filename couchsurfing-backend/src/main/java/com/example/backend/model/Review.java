@@ -25,6 +25,8 @@ public class Review {
 
     private String receiverId;
 
+    private String requestId;
+
     private Boolean wouldRepeat;
 
     private ServiceType serviceType;
