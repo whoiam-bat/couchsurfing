@@ -65,13 +65,14 @@ public class RequestService {
     }
 
     public Page<Request> getOutgoingRequests(Authentication authentication,
+                                             List<RequestStatus> requestStatusList,
                                              int page, int size) {
         User sender = (User) authentication.getPrincipal();
 
         return requestRepository.findRequestsBySenderAndServiceTypeAndRequestStatusIn(
                 sender.getId(),
                 ServiceType.ACCOMMODATION_REQUEST,
-                List.of(RequestStatus.CREATED, RequestStatus.ACCEPTED, RequestStatus.COMPLETED),
+                requestStatusList,
                 PageRequest.of(page, size)
         );
     }

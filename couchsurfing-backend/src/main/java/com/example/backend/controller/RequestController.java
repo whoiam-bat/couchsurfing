@@ -40,7 +40,6 @@ public class RequestController {
                                                              @RequestParam int size,
                                                              @RequestParam List<RequestStatus> requestStatusList,
                                                              Authentication connectedUser) {
-        // TODO - add RequestStatus to RequestParams to select requests by RequestStatus dynamically
         return ResponseEntity.ok(
                 requestService.getIncomingRequests(connectedUser, requestStatusList, page, size)
         );
@@ -49,10 +48,10 @@ public class RequestController {
     @GetMapping("/outgoing")
     public ResponseEntity<Page<Request>> getOutgoingRequests(@RequestParam int page,
                                                              @RequestParam int size,
+                                                             @RequestParam List<RequestStatus> requestStatusList,
                                                              Authentication connectedUser) {
-        // TODO - add RequestStatus to RequestParams to select requests by RequestStatus dynamically
         return ResponseEntity.ok(
-                requestService.getOutgoingRequests(connectedUser, page, size)
+                requestService.getOutgoingRequests(connectedUser, requestStatusList, page, size)
         );
     }
 
