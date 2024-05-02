@@ -52,13 +52,14 @@ public class RequestService {
     }
 
     public Page<Request> getIncomingRequests(Authentication authentication,
+                                             List<RequestStatus> requestStatusList,
                                              int page, int size) {
         User receiver = (User) authentication.getPrincipal();
 
         return requestRepository.findRequestsByReceiverAndServiceTypeAndRequestStatusIn(
                 receiver.getId(),
                 ServiceType.ACCOMMODATION_REQUEST,
-                List.of(RequestStatus.CREATED, RequestStatus.ACCEPTED, RequestStatus.COMPLETED),
+                requestStatusList,
                 PageRequest.of(page, size)
         );
     }

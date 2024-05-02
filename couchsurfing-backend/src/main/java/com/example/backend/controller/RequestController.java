@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.model.Request;
+import com.example.backend.model.enums.RequestStatus;
 import com.example.backend.service.RequestService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/requests")
@@ -35,10 +38,11 @@ public class RequestController {
     @GetMapping("/incoming")
     public ResponseEntity<Page<Request>> getIncomingRequests(@RequestParam int page,
                                                              @RequestParam int size,
+                                                             @RequestParam List<RequestStatus> requestStatusList,
                                                              Authentication connectedUser) {
         // TODO - add RequestStatus to RequestParams to select requests by RequestStatus dynamically
         return ResponseEntity.ok(
-                requestService.getIncomingRequests(connectedUser, page, size)
+                requestService.getIncomingRequests(connectedUser, requestStatusList, page, size)
         );
     }
 
