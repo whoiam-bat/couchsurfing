@@ -48,16 +48,12 @@ public class ReviewService {
                 .orElseThrow(() -> new EntityNotFoundException("Review not found"));
     }
 
-    public Page<Review> getIncomingReviews(Authentication authentication, ServiceType serviceType, int page, int size) {
-        User receiver = (User) authentication.getPrincipal();
-
-        return reviewRepository.findReviewByReceiverIdAndServiceType(receiver.getId(), serviceType, PageRequest.of(page, size));
+    public Page<Review> getIncomingReviews(String receiverId, ServiceType serviceType, int page, int size) {
+        return reviewRepository.findReviewByReceiverIdAndServiceType(receiverId, serviceType, PageRequest.of(page, size));
     }
 
-    public List<Review> getAllIncomingReviews(Authentication authentication, ServiceType serviceType) {
-        User receiver = (User) authentication.getPrincipal();
-
-        return reviewRepository.findReviewsByReceiverIdAndServiceType(receiver.getId(), serviceType);
+    public List<Review> getAllIncomingReviews(String receiverId, ServiceType serviceType) {
+        return reviewRepository.findReviewsByReceiverIdAndServiceType(receiverId, serviceType);
     }
 
     public Page<Review> getOutgoingReviews(Authentication authentication, ServiceType serviceType, int page, int size) {

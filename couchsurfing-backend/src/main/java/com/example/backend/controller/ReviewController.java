@@ -1,6 +1,7 @@
 package com.example.backend.controller;
 
 import com.example.backend.model.Review;
+import com.example.backend.model.User;
 import com.example.backend.model.enums.ServiceType;
 import com.example.backend.service.ReviewService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -40,15 +41,32 @@ public class ReviewController {
     @GetMapping("/incoming")
     public ResponseEntity<Page<Review>> getIncomingReviews(@RequestParam int page,
                                                            @RequestParam int size,
+                                                           @RequestParam(required = false) String userId,
                                                            @RequestParam ServiceType serviceType,
                                                            Authentication connectedUser) {
-        return ResponseEntity.ok(reviewService.getIncomingReviews(connectedUser, serviceType, page, size));
+        Page<Review> reviewsPage;
+        if (userId == null) {
+            User receiver = (User) connectedUser.getPrincipal();
+            reviewsPage = reviewService.getIncomingReviews(receiver.getId(), serviceType, page, size);
+        } else {
+            reviewsPage = reviewService.getIncomingReviews(userId, serviceType, page, size);
+        }
+
+        return ResponseEntity.ok(reviewsPage);
     }
 
     @GetMapping("/all-incoming")
-    public ResponseEntity<List<Review>> getAllIncomingReviews(@RequestParam ServiceType serviceType,
+    public ResponseEntity<List<Review>> getAllIncomingReviews(@RequestParam(required = false) String userId,
+                                                              @RequestParam ServiceType serviceType,
                                                               Authentication connectedUser) {
-        return ResponseEntity.ok(reviewService.getAllIncomingReviews(connectedUser, serviceType));
+        List<Review> reviews;
+        if (userId == null) {
+            User receiver = (User) connectedUser.getPrincipal();
+            reviews = reviewService.getAllIncomingReviews(receiver.getId(), serviceType);
+        } else {
+            reviews = reviewService.getAllIncomingReviews(userId, serviceType);
+        }
+        return ResponseEntity.ok(reviews);
     }
 
     @GetMapping("/outgoing")
