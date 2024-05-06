@@ -27,5 +27,5 @@ public class UserInfo {
     @NotBlank(message = "This section is required")
     private String location;
 
-    private List<String> userPhotos;
+    private byte[] userPhoto;
 }

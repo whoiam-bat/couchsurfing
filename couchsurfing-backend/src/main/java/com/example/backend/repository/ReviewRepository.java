@@ -21,6 +21,6 @@ public interface ReviewRepository extends MongoRepository<Review, String> {
 
     List<Review> findReviewsByReceiverId(String receiverId);
 
-    Optional<Review> findReviewByRequestId(String requestId);
+    Optional<Review> findReviewByRequestIdAndServiceType(String requestId, ServiceType serviceType);
 
 }

@@ -32,8 +32,9 @@ public class ReviewController {
     }
 
     @GetMapping("/by-requestId")
-    public ResponseEntity<Review> getReviewByRequestId(@RequestParam String requestId) {
-        return ResponseEntity.ok(reviewService.getReviewByRequestId(requestId));
+    public ResponseEntity<Review> getReviewByRequestId(@RequestParam String requestId,
+                                                       @RequestParam ServiceType serviceType) {
+        return ResponseEntity.ok(reviewService.getReviewByRequestIdAndServiceType(requestId, serviceType));
     }
 
     @GetMapping("/incoming")
@@ -46,7 +47,7 @@ public class ReviewController {
 
     @GetMapping("/all-incoming")
     public ResponseEntity<List<Review>> getAllIncomingReviews(@RequestParam ServiceType serviceType,
-                                                           Authentication connectedUser) {
+                                                              Authentication connectedUser) {
         return ResponseEntity.ok(reviewService.getAllIncomingReviews(connectedUser, serviceType));
     }
 

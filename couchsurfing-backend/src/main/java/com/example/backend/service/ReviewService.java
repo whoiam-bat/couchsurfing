@@ -43,8 +43,8 @@ public class ReviewService {
         return reviewRepository.findById(reviewId).orElseThrow(() -> new EntityNotFoundException("Review not found"));
     }
 
-    public Review getReviewByRequestId(String requestId) {
-        return reviewRepository.findReviewByRequestId(requestId)
+    public Review getReviewByRequestIdAndServiceType(String requestId, ServiceType serviceType) {
+        return reviewRepository.findReviewByRequestIdAndServiceType(requestId, serviceType)
                 .orElseThrow(() -> new EntityNotFoundException("Review not found"));
     }
 
