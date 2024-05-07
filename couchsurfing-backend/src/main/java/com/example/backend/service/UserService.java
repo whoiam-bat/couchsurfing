@@ -2,6 +2,8 @@ package com.example.backend.service;
 
 import com.example.backend.exception.EntityNotFoundException;
 import com.example.backend.model.User;
+import com.example.backend.model.UserHome;
+import com.example.backend.model.UserInfo;
 import com.example.backend.model.enums.Authority;
 import com.example.backend.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -54,6 +56,20 @@ public class UserService {
         User connectedUser = (User) authentication.getPrincipal();
 
         modelMapper.getConfiguration().setSkipNullEnabled(true);
+
+        if (userToUpdate.getUserHome() != null) {
+            if (connectedUser.getUserHome() == null)
+                connectedUser.setUserHome(UserHome.builder().build());
+
+            modelMapper.map(userToUpdate.getUserHome(), connectedUser.getUserHome());
+        }
+        if (userToUpdate.getUserInfo() != null) {
+            if (connectedUser.getUserInfo() == null)
+                connectedUser.setUserInfo(UserInfo.builder().build());
+
+            modelMapper.map(userToUpdate.getUserInfo(), connectedUser.getUserInfo());
+        }
+
         modelMapper.map(userToUpdate, connectedUser);
 
         if (connectedUser.getUserHome() != null && !connectedUser.getAuthorities().contains(Authority.ROLE_HOST))

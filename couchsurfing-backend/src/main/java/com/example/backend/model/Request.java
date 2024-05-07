@@ -3,6 +3,7 @@ package com.example.backend.model;
 import com.example.backend.model.enums.RequestStatus;
 import com.example.backend.model.enums.ServiceType;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -32,8 +33,10 @@ public class Request {
     @Min(value = 1, message = "value should be greater than 0")
     private Integer travelersAmount;
 
+    @Schema(type = "integer", format = "int32")
     private Date from;
 
+    @Schema(type = "integer", format = "int32")
     private Date to;
 
     private String message;

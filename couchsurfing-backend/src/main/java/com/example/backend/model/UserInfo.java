@@ -11,11 +11,9 @@ import java.util.List;
 @Builder
 public class UserInfo {
 
-    @NotBlank(message = "This section is required")
     private String aboutMe;
 
     @Min(value = 18, message = "You should be at least 18 years old")
-    @NotBlank
     private Integer age;
 
     private List<String> languages;
@@ -24,8 +22,7 @@ public class UserInfo {
 
     private String education;
 
-    @NotBlank(message = "This section is required")
     private String location;
 
-    private byte[] userPhoto;
+    private String userPhoto;
 }
