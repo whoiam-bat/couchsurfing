@@ -1,0 +1,42 @@
+* {
+  background-color: var(--light-black);
+  color: var(--white);
+}
+
+.accepting-guests {
+  & span {
+    color: var(--light-blue);
+  }
+}
+.guests-checkbox {
+  width: 20px;
+  height: 20px;
+}
+
+.inputs {
+  & ul {
+    border-color: none;
+    & li {
+      border-color: var(--light-black);
+      & i {
+        color: var(--orange);
+        cursor: pointer;
+      }
+    }
+  }
+}
+.form-control {
+  color: var(--white);
+  &:focus {
+    background-color: var(--grey);
+  }
+}
+#location {
+  color: var(--white);
+  &:focus {
+    background-color: var(--light-black);
+  }
+  &::placeholder {
+    color: var(--white);
+  }
+}

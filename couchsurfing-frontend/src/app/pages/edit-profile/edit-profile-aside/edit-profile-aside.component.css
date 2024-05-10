@@ -1,0 +1,25 @@
+.card {
+  background-color: var(--light-black);
+  color: var(--white);
+}
+.title {
+  color: var(--orange);
+}
+.item {
+  display: block;
+  font-size: 0.8em;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.image-container {
+  width: 18rem;
+  min-height: 300px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.image-container img {
+  width: 100%;
+  height: auto;
+}
