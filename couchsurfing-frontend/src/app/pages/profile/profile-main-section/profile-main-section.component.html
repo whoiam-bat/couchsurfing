@@ -1,0 +1,48 @@
+<div class="main">
+  <div class="status d-flex justify-content-between align-items-center">
+    <div class="status">
+      <div *ngIf="user.userHome">
+        <span *ngIf="user.userHome.isAcceptingGuests"
+              class="status d-block text-center my-2 h4 text-success">
+          Accepting Guests
+        </span>
+        <span *ngIf="!user.userHome.isAcceptingGuests"
+              class="status d-block text-center my-2 h4 text-danger">
+          Non Accepting Guests
+        </span>
+      </div>
+    </div>
+    <div class="edit-btn-wrap" *ngIf="!noEdit">
+      <button class="btn-edit btn" routerLink="/profile/edit-profile">
+        Edit My Profile
+      </button>
+    </div>
+  </div>
+  <div class="about d-flex">
+    <span class="tab-link me-5 bookmark"
+      [ngClass]="{ 'active-tab': activeTab === tabs.about }"
+      (click)="swapTab(tabs.about)">
+      {{ tabs.about }}
+    </span>
+    <span class="tab-link me-5 bookmark"
+      [ngClass]="{ 'active-tab': activeTab === tabs.home }"
+      (click)="swapTab(tabs.home)">
+      {{ tabs.home }}
+    </span>
+    <span class="tab-link me-5 bookmark"
+      [ngClass]="{ 'active-tab': activeTab === tabs.references }"
+      (click)="swapTab(tabs.references)">
+      {{ tabs.references }}
+    </span>
+  </div>
+
+  <div class="overview">
+    <app-about-tab [user]="user" *ngIf="activeTab === tabs.about"></app-about-tab>
+  </div>
+  <div class="my-home">
+    <app-my-home-tab [user]="user" *ngIf="activeTab === tabs.home"></app-my-home-tab>
+  </div>
+  <div class="my-home" *ngIf="activeTab === tabs.references">
+    <app-reviews-page [user]="user" *ngIf="activeTab === tabs.references"></app-reviews-page>
+  </div>
+</div>
