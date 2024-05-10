@@ -1,0 +1,80 @@
+.review-modal {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.5) ;
+  position: fixed;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  & .modal-dialog {
+    width: 400px;
+    background-color: var(--grey);
+    border-radius: 5px;
+  }
+}
+
+.btn {
+  width: 100px;
+  background-color: var(--light-blue);
+  border-radius: 0;
+}
+
+.btn-save {
+    background-color: var(--orange);
+}
+
+#rating-container {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row-reverse;
+
+  .star {
+    color: var(--dark-black);
+    font-size: 24px;
+    cursor: pointer;
+
+    &.rated,
+    &:hover,
+    &:hover ~ .star {
+      color: orange;
+    }
+
+    transition: color 0.3s ease-in-out;
+  }
+
+  &.readOnly {
+    .star {
+      cursor: default;
+      &:hover:not(.rated),
+      &:hover ~ .star:not(.rated) {
+        color: var(--grey);
+      }
+    }
+    #reset {
+      cursor: default;
+      color: var(--dark-red);
+    }
+  }
+
+  #reset {
+    color: var(--light-red);
+    font-size: 24px;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--dark-red);
+    }
+  }
+}
+.checkbox {
+  width: 20px;
+  height: 20px;
+}
+
+.feedback-text{
+  display: block;
+  min-height: 160px;
+  max-height: 300px;
+}

@@ -1,0 +1,78 @@
+<div
+  *ngIf="isModalShown"
+  class="review-modal position-fixed d-flex align-items-center justify-content-center"
+  tabindex="-1"
+>
+  <div class="modal-dialog modal-dialog-centered p-3">
+    <div class="modal-content">
+      <div
+        class="modal-header d-flex flex-column row-gap-3 justify-content-lg-start"
+      >
+        <h1 class="modal-title text-uppercase fs-5">Feedback</h1>
+        <h5 class="text-primary fs-6" *ngIf="isReadOnly">
+          You have already gave a feedback
+        </h5>
+      </div>
+      <div class="modal-body pt-4 d-flex flex-column row-gap-3">
+        <div class="d-flex flex-column row-gap-1">
+          <label for="wouldRepeat" class="form-label"
+            >Share your impressions about it</label
+          >
+          <textarea
+            class="form-control feedback-text"
+            rows="6"
+            [(ngModel)]="feedback"
+            [readonly]="isReadOnly"
+          ></textarea>
+        </div>
+        <div class="checkbox-wrap mt-4 d-flex column-gap-1 align-items-center">
+          <input
+            type="checkbox"
+            class="checkbox ms-2"
+            id="wouldRepeat"
+            autocomplete="off"
+            [(ngModel)]="wouldRepeat"
+            [disabled]="isReadOnly"
+          />
+          <label
+            for="wouldRepeat"
+            class="form-label p-0 m-0"
+            (click)="checkRepeat()"
+            >Would repeat this trip</label
+          >
+        </div>
+        <div
+          id="rating-container"
+          [class.readOnly]="isReadOnly"
+          class="d-flex column-gap-3 mb-4"
+        >
+          <i
+            id="reset"
+            class="fa-solid fa-xmark fs3"
+            (click)="resetRating()"
+          ></i>
+
+          <i
+            *ngFor="let i of [5, 4, 3, 2, 1]"
+            class="fa-solid fa-star star"
+            [class.rated]="rating >= i"
+            (click)="updateRating(i)"
+          ></i>
+        </div>
+      </div>
+      <div class="modal-footer d-flex gap-2">
+        <button type="button" class="btn btn-secondary" (click)="close()">
+          Close
+        </button>
+        <button
+          type="button"
+          class="btn btn-save"
+          (click)="save()"
+          [disabled]="isReadOnly"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
