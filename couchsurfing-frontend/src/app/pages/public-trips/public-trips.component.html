@@ -1,0 +1,94 @@
+<div class="container p-3 py-5 row">
+  <div class="col-10" style="min-height: 350px">
+    <span class="title d-block mb-5">
+      <i class="fa-solid fa-plane"></i>
+      <span class="ps-1">
+        {{ "public trips" | uppercase }}
+      </span>
+    </span>
+    <div *ngIf="!trips.length" class="content my-5 text-center">
+      <span>You have no trips.</span>
+    </div>
+    <div class="trips d-flex flex-column justify-content-between">
+      <div
+        class="trip p-3 d-flex justify-content-between"
+        *ngFor="let trip of trips"
+      >
+        <div>
+          <span>
+            <span class="destination">Trip to {{ trip.location }}</span>
+            &nbsp;
+            <span
+              *ngIf="trip.requestStatus == 'CREATED'"
+              class="badge bg-secondary"
+              >{{ trip.requestStatus }}</span
+            >
+            <span
+              *ngIf="trip.requestStatus == 'ACCEPTED'"
+              class="badge bg-primary"
+              >{{ trip.requestStatus }}</span
+            >
+            <span
+              *ngIf="trip.requestStatus == 'COMPLETED'"
+              class="badge bg-success"
+              >{{ trip.requestStatus }}</span
+            >
+          </span>
+          <span class="date-range d-block">
+            <span class="date-start">{{
+              trip.from | date : "MMM dd yyyy"
+            }}</span>
+            {{ " - " }}
+            <span class="date-end">{{ trip.to | date : "MMM dd yyyy" }}</span>
+          </span>
+          <span class="message">{{ trip.message }}</span>
+        </div>
+        <div class="d-flex align-items-center">
+          <a
+            (click)="viewProfile(trip.receiver)"
+            class="link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+            >Host profile</a
+          >
+        </div>
+        <div class="control">
+          <button
+            type="button"
+            class="btn-trigger btn btn-feedback"
+            (click)="giveFeedback(trip.id)"
+            [disabled]="trip.requestStatus != 'COMPLETED'"
+          >
+            Give feedback
+          </button>
+          <button
+            type="button"
+            class="btn-trigger btn btn-edit"
+            routerLink="/dashboard/public-trips/manage"
+            (click)="edit(trip)"
+            [disabled]="trip.requestStatus == 'COMPLETED'"
+          >
+            Edit
+          </button>
+          <ng-container *ngIf="isModalShown">
+            <app-feedback-modal
+              [trip]="tripToFeedback"
+              [isModalShown]="isModalShown"
+              (closeModal)="isModalShown = false"
+            ></app-feedback-modal
+          ></ng-container>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="create col-2">
+    <span class="title d-block mb-2"> Create Public Trip</span>
+    <div class="create-btn">
+      <button
+        type="button"
+        class="btn-trigger btn"
+        routerLink="/dashboard/public-trips/manage"
+      >
+        New Public Trip
+      </button>
+    </div>
+  </div>
+</div>
