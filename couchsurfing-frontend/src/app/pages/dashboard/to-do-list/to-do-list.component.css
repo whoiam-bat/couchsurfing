@@ -1,0 +1,21 @@
+.container {
+  background-color: var(--light-black);
+  color: var(--white);
+  * {
+    background-color: inherit;
+    color: inherit;
+  }
+}
+.card-icon > i {
+  color: var(--dark-green);
+  font-size: 2.5em;
+}
+
+.control {
+  .btn {
+    background-color: var(--light-green);
+    color: white;
+    border-radius: 0;
+    width: 150px;
+  }
+}
