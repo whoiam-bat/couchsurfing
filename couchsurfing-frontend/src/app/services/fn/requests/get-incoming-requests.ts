@@ -9,17 +9,17 @@ import { RequestBuilder } from '../../request-builder';
 import { PageRequest } from '../../models/page-request';
 
 export interface GetIncomingRequests$Params {
-  location: string;
   page: number;
   size: number;
+  requestStatusList: Array<'CREATED' | 'ACCEPTED' | 'DECLINED' | 'CANCELED' | 'COMPLETED'>;
 }
 
 export function getIncomingRequests(http: HttpClient, rootUrl: string, params: GetIncomingRequests$Params, context?: HttpContext): Observable<StrictHttpResponse<PageRequest>> {
   const rb = new RequestBuilder(rootUrl, getIncomingRequests.PATH, 'get');
   if (params) {
-    rb.query('location', params.location, {});
     rb.query('page', params.page, {});
     rb.query('size', params.size, {});
+    rb.query('requestStatusList', params.requestStatusList, {});
   }
 
   return http.request(

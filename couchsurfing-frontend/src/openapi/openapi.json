@@ -403,36 +403,6 @@
         }
       }
     },
-    "/reviews/{reviewId}": {
-      "get": {
-        "tags": [
-          "Reviews"
-        ],
-        "operationId": "getReview",
-        "parameters": [
-          {
-            "name": "reviewId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Review"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/reviews/outgoing": {
       "get": {
         "tags": [
@@ -456,6 +426,18 @@
             "schema": {
               "type": "integer",
               "format": "int32"
+            }
+          },
+          {
+            "name": "serviceType",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ACCOMMODATION_PROVISION",
+                "ACCOMMODATION_REQUEST"
+              ]
             }
           }
         ],
@@ -497,6 +479,26 @@
               "type": "integer",
               "format": "int32"
             }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serviceType",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ACCOMMODATION_PROVISION",
+                "ACCOMMODATION_REQUEST"
+              ]
+            }
           }
         ],
         "responses": {
@@ -506,6 +508,123 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PageReview"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reviews/by-reviewId": {
+      "get": {
+        "tags": [
+          "Reviews"
+        ],
+        "operationId": "getReviewById",
+        "parameters": [
+          {
+            "name": "reviewId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Review"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reviews/by-requestId": {
+      "get": {
+        "tags": [
+          "Reviews"
+        ],
+        "operationId": "getReviewByRequestId",
+        "parameters": [
+          {
+            "name": "requestId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serviceType",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ACCOMMODATION_PROVISION",
+                "ACCOMMODATION_REQUEST"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Review"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reviews/all-incoming": {
+      "get": {
+        "tags": [
+          "Reviews"
+        ],
+        "operationId": "getAllIncomingReviews",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "serviceType",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ACCOMMODATION_PROVISION",
+                "ACCOMMODATION_REQUEST"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Review"
+                  }
                 }
               }
             }
@@ -575,6 +694,24 @@
               "type": "integer",
               "format": "int32"
             }
+          },
+          {
+            "name": "requestStatusList",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "CREATED",
+                  "ACCEPTED",
+                  "DECLINED",
+                  "CANCELED",
+                  "COMPLETED"
+                ]
+              }
+            }
           }
         ],
         "responses": {
@@ -599,14 +736,6 @@
         "operationId": "getIncomingRequests",
         "parameters": [
           {
-            "name": "location",
-            "in": "query",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "name": "page",
             "in": "query",
             "required": true,
@@ -622,6 +751,24 @@
             "schema": {
               "type": "integer",
               "format": "int32"
+            }
+          },
+          {
+            "name": "requestStatusList",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "CREATED",
+                  "ACCEPTED",
+                  "DECLINED",
+                  "CANCELED",
+                  "COMPLETED"
+                ]
+              }
             }
           }
         ],
@@ -714,6 +861,9 @@
           "receiverId": {
             "type": "string"
           },
+          "requestId": {
+            "type": "string"
+          },
           "wouldRepeat": {
             "type": "boolean"
           },
@@ -751,12 +901,12 @@
             "format": "int32"
           },
           "from": {
-            "type": "string",
-            "format": "date-time"
+            "type": "integer",
+            "format": "int32"
           },
           "to": {
-            "type": "string",
-            "format": "date-time"
+            "type": "integer",
+            "format": "int32"
           },
           "message": {
             "type": "string"
@@ -805,7 +955,7 @@
             "type": "string"
           },
           "password": {
-            "pattern": "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\\\S+$).{5,20}$",
+            "pattern": "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{5,20}$",
             "type": "string"
           }
         }
@@ -828,7 +978,7 @@
             "type": "string"
           },
           "password": {
-            "pattern": "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\\\S+$).{5,20}$",
+            "pattern": "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\\S+$).{5,20}$",
             "type": "string"
           }
         }
@@ -844,10 +994,6 @@
           },
           "email": {
             "type": "string"
-          },
-          "dateCreated": {
-            "type": "string",
-            "format": "date-time"
           },
           "isVerified": {
             "type": "boolean"
@@ -911,23 +1057,18 @@
           "otherInfo": {
             "type": "string"
           },
+          "iamSmoker": {
+            "type": "boolean"
+          },
           "ihaveKids": {
             "type": "boolean"
           },
           "ihavePets": {
             "type": "boolean"
-          },
-          "iamSmoker": {
-            "type": "boolean"
           }
         }
       },
       "UserInfo": {
-        "required": [
-          "aboutMe",
-          "age",
-          "location"
-        ],
         "type": "object",
         "properties": {
           "aboutMe": {
@@ -953,11 +1094,8 @@
           "location": {
             "type": "string"
           },
-          "userPhotos": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+          "userPhoto": {
+            "type": "string"
           }
         }
       },
@@ -992,18 +1130,18 @@
               "$ref": "#/components/schemas/SortObject"
             }
           },
-          "first": {
-            "type": "boolean"
-          },
-          "last": {
-            "type": "boolean"
-          },
           "numberOfElements": {
             "type": "integer",
             "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
           },
           "empty": {
             "type": "boolean"
@@ -1023,6 +1161,12 @@
               "$ref": "#/components/schemas/SortObject"
             }
           },
+          "unpaged": {
+            "type": "boolean"
+          },
+          "paged": {
+            "type": "boolean"
+          },
           "pageNumber": {
             "type": "integer",
             "format": "int32"
@@ -1030,12 +1174,6 @@
           "pageSize": {
             "type": "integer",
             "format": "int32"
-          },
-          "unpaged": {
-            "type": "boolean"
-          },
-          "paged": {
-            "type": "boolean"
           }
         }
       },
@@ -1090,18 +1228,18 @@
               "$ref": "#/components/schemas/SortObject"
             }
           },
-          "first": {
-            "type": "boolean"
-          },
-          "last": {
-            "type": "boolean"
-          },
           "numberOfElements": {
             "type": "integer",
             "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
           },
           "empty": {
             "type": "boolean"
@@ -1139,18 +1277,18 @@
               "$ref": "#/components/schemas/SortObject"
             }
           },
-          "first": {
-            "type": "boolean"
-          },
-          "last": {
-            "type": "boolean"
-          },
           "numberOfElements": {
             "type": "integer",
             "format": "int32"
           },
           "pageable": {
             "$ref": "#/components/schemas/PageableObject"
+          },
+          "first": {
+            "type": "boolean"
+          },
+          "last": {
+            "type": "boolean"
           },
           "empty": {
             "type": "boolean"

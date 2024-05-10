@@ -6,21 +6,17 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { PageReview } from '../../models/page-review';
+import { Review } from '../../models/review';
 
-export interface GetIncomingReviews$Params {
-  page: number;
-  size: number;
-  userId?: string;
+export interface GetReviewByRequestId$Params {
+  requestId: string;
   serviceType: 'ACCOMMODATION_PROVISION' | 'ACCOMMODATION_REQUEST';
 }
 
-export function getIncomingReviews(http: HttpClient, rootUrl: string, params: GetIncomingReviews$Params, context?: HttpContext): Observable<StrictHttpResponse<PageReview>> {
-  const rb = new RequestBuilder(rootUrl, getIncomingReviews.PATH, 'get');
+export function getReviewByRequestId(http: HttpClient, rootUrl: string, params: GetReviewByRequestId$Params, context?: HttpContext): Observable<StrictHttpResponse<Review>> {
+  const rb = new RequestBuilder(rootUrl, getReviewByRequestId.PATH, 'get');
   if (params) {
-    rb.query('page', params.page, {});
-    rb.query('size', params.size, {});
-    rb.query('userId', params.userId, {});
+    rb.query('requestId', params.requestId, {});
     rb.query('serviceType', params.serviceType, {});
   }
 
@@ -29,9 +25,9 @@ export function getIncomingReviews(http: HttpClient, rootUrl: string, params: Ge
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<PageReview>;
+      return r as StrictHttpResponse<Review>;
     })
   );
 }
 
-getIncomingReviews.PATH = '/reviews/incoming';
+getReviewByRequestId.PATH = '/reviews/by-requestId';
