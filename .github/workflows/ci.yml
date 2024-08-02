@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-deploy:
+  backend:
     name: Build and deploy the application server side
     runs-on: ubuntu-latest
     steps:
@@ -24,6 +24,7 @@ jobs:
 
       - name: Build the application
         run: |
+          cd couchsurfing-backend
           mvn clean
           mvn -B package --file pom.xml
 
