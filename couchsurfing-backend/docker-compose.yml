@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  mongodb:
+    container_name: mongodb-container
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 1488
+    ports:
+      - 27017:27017
+    volumes:
+      - couchsurfing-data:/data/db
+
+  backend:
+    container_name: couchsurfing-api
+    image: oleksiidrabchak/couchsurfing-api:0.0.3
+    build: .
+    ports:
+      - 8080:8080
+    depends_on:
+      - mongodb
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://root:1488@mongodb:27017/couchsurfing?authSource=admin
+
+volumes:
+  couchsurfing-data: {}
