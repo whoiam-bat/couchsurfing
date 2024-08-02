@@ -22,7 +22,7 @@ jobs:
       - name: Run Unit tests
         run: |
           cd couchsurfing-backend
-          mvn -B test --file pom.xml
+          mvn test --file pom.xml
 
       - name: Build the application
         run: |
