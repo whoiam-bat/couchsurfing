@@ -20,7 +20,9 @@ jobs:
           java-version: 21
 
       - name: Run Unit tests
-        run: mvn -B test --file pom.xml
+        run: |
+          cd couchsurfing-backend
+          mvn -B test --file pom.xml
 
       - name: Build the application
         run: |
