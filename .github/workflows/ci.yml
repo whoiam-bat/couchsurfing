@@ -27,7 +27,7 @@ jobs:
           java-version: 21
 
       - name: Set up MongoDB
-        uses: supercharge/mongodb-github-action@7.0.8
+        uses: supercharge/mongodb-github-action@7.0
         with:
           mongo-version: '7.0.8'
           root-username: ${{ secrets.MONGO_DB_USERNAME }}
