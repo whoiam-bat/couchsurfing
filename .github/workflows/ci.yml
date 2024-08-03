@@ -50,6 +50,7 @@ jobs:
 
       - name: Build Docker image
         uses: docker/build-push-action@v6
+        run: cd couchsurfing-backend
         with:
           context: .
           dockerfile: Dockerfile
