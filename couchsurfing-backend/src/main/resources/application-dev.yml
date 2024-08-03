@@ -1,0 +1,18 @@
+spring:
+  data:
+    mongodb:
+      username: ${MONGO_DB_USERNAME}
+      password: ${MONGO_DB_PASSWORD}
+      database: couchsurfing
+      authentication-database: admin
+      #uri: ${SPRING_DATA_MONGODB_URI}
+      #host: mongodb
+      uri: ${MONGO_DB_URI}
+      host: localhost
+      port: 27017
+      auto-index-creation: true
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: ${JWT_EXPIRATION}
+  issuer: ${JWT_ISSUER}
