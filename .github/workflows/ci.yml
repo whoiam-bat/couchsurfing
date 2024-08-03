@@ -9,6 +9,13 @@ jobs:
   backend:
     name: Build and deploy the application server side
     runs-on: ubuntu-latest
+    env:
+      MONGO_DB_USERNAME: ${{ MONGO_DB_USERNAME }}
+      MONGO_DB_PASSWORD: ${{ MONGO_DB_PASSWORD }}
+      MONGO_DB_URI: ${{ MONGO_DB_URI }}
+      JWT_SECRET: ${{ JWT_SECRET }}
+      JWT_EXPIRATION: ${{ JWT_EXPIRATION }}
+      JWT_ISSUER: ${{ JWT_ISSUER }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -22,7 +29,7 @@ jobs:
       - name: Run Unit tests
         run: |
           cd couchsurfing-backend
-          mvn test --file pom.xml
+          mvn -B test --file pom.xml
 
       - name: Build the application
         run: |
