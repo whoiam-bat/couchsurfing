@@ -26,6 +26,13 @@ jobs:
           distribution: 'oracle'
           java-version: 21
 
+      - name: Set up MongoDB
+        uses: supercharge/mongodb-github-action@7.0.8
+        with:
+          mongo-version: '7.0.8'
+          root-username: ${{ secrets.MONGO_DB_USERNAME }}
+          root-password: ${{ secrets.MONGO_DB_PASSWORD }}
+
       - name: Run Unit tests
         run: |
           cd couchsurfing-backend
