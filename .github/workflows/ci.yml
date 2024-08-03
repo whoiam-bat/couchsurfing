@@ -50,9 +50,8 @@ jobs:
 
       - name: Build Docker image
         uses: docker/build-push-action@v6
-        run: cd couchsurfing-backend
         with:
-          context: .
+          context: couchsurfing-backend
           dockerfile: Dockerfile
           push: false
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/couchsurfing-api:${{ env.COMMIT_HASH }}
@@ -66,7 +65,7 @@ jobs:
       - name: Push to Docker Hub
         uses: docker/build-push-action@v6
         with:
-          context: .
+          context: couchsurfing-backend
           dockerfile: Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_HUB_USERNAME }}/couchsurfing-api:${{ env.COMMIT_HASH }}
