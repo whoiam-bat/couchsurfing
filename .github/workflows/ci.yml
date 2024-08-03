@@ -10,12 +10,12 @@ jobs:
     name: Build and deploy the application server side
     runs-on: ubuntu-latest
     env:
-      MONGO_DB_USERNAME: ${{ MONGO_DB_USERNAME }}
-      MONGO_DB_PASSWORD: ${{ MONGO_DB_PASSWORD }}
-      MONGO_DB_URI: ${{ MONGO_DB_URI }}
-      JWT_SECRET: ${{ JWT_SECRET }}
-      JWT_EXPIRATION: ${{ JWT_EXPIRATION }}
-      JWT_ISSUER: ${{ JWT_ISSUER }}
+      MONGO_DB_USERNAME: ${{ secrets.MONGO_DB_USERNAME }}
+      MONGO_DB_PASSWORD: ${{ secrets.MONGO_DB_PASSWORD }}
+      MONGO_DB_URI: ${{ secrets.MONGO_DB_URI }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET }}
+      JWT_EXPIRATION: ${{ secrets.JWT_EXPIRATION }}
+      JWT_ISSUER: ${{ secrets.JWT_ISSUER }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
